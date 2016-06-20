@@ -17,7 +17,10 @@ public class Book {
     private String description;
     private BigDecimal price;
 
-    public Book( String name, String isbn, String description, BigDecimal price) {
+    public Book() {
+    }
+
+    public Book(String name, String isbn, String description, BigDecimal price) {
         this.name = name;
         this.isbn = isbn;
         this.description = description;
@@ -59,6 +62,8 @@ public class Book {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+
 
     @Override
     public String toString() {

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> getBooks();
-
+    public void addBook(Book book);
+    public List<Book> getBooks();
 }

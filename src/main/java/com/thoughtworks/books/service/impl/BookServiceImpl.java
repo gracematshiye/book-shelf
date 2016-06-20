@@ -18,6 +18,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
+    public void addBook(Book book) {
+        bookDAO.addBook(book);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Book> getBooks() {
         return bookDAO.getBooks();
     }
