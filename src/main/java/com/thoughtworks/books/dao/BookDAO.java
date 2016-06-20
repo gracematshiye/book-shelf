@@ -10,6 +10,4 @@ public interface BookDAO {
 
     public void addBook(Book book);
     public List<Book> getBooks();
-
-    void setSessionFactory(SessionFactory sessionFactory);
 }

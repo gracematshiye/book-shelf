@@ -19,9 +19,6 @@ public class BookDAOImpl implements BookDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public void addBook(Book book) {
@@ -31,7 +28,7 @@ public class BookDAOImpl implements BookDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Book> getBooks() {
-        return getSession().createCriteria(Book.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+      return getSession().createCriteria(Book.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     private Session getSession() {
