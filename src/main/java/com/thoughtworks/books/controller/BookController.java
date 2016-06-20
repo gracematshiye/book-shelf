@@ -22,6 +22,9 @@ public class BookController {
     @RequestMapping(method = RequestMethod.GET)
     public String displayAll(ModelMap modelMap) {
 
+        Book book = new Book("Java", "boo-101", "learn java", new BigDecimal(123));
+        bookService.addBook(book);
+
         List<Book> books = this.bookService.getBooks();
 
         modelMap.addAttribute("books", books);
@@ -32,8 +35,9 @@ public class BookController {
     @RequestMapping(method = RequestMethod.POST)
     public String addBook(@ModelAttribute("person") Book book){
 
+
         if(book.getId() == 0){
-            //new person, add it
+            //new book, add it
             this.bookService.addBook(book);
         }
 
