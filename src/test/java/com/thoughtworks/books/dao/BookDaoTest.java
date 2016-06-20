@@ -1,7 +1,6 @@
-package com.thoughtworks.books;
+package com.thoughtworks.books.dao;
 
 
-import com.thoughtworks.books.dao.BookDAO;
 import com.thoughtworks.books.entity.Book;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Transactional
 public class BookDaoTest {

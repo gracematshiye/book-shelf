@@ -2,7 +2,6 @@ package com.thoughtworks.books.dao.impl;
 
 import com.thoughtworks.books.dao.BookDAO;
 import com.thoughtworks.books.entity.Book;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
