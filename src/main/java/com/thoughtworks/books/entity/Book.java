@@ -1,5 +1,8 @@
 package com.thoughtworks.books.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -74,5 +77,31 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return new EqualsBuilder()
+                .append(name, book.name)
+                .append(isbn, book.isbn)
+                .append(description, book.description)
+                .append(price, book.price)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(name)
+                .append(isbn)
+                .append(description)
+                .append(price)
+                .toHashCode();
     }
 }
