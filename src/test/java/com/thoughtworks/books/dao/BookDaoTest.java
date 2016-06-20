@@ -31,6 +31,15 @@ public class BookDaoTest {
         book.setPrice(price);
     }
 
+    @Test
+    public void testAddBook() throws Exception {
+
+    }
+
+    @Test
+    public void testGetBooks() throws Exception {
+
+    }
 
     @Test
     public void testBookNotNull() throws Exception {
