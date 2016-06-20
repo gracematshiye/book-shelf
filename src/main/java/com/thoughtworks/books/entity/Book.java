@@ -81,27 +81,11 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Book book = (Book) o;
-
-        return new EqualsBuilder()
-                .append(name, book.name)
-                .append(isbn, book.isbn)
-                .append(description, book.description)
-                .append(price, book.price)
-                .isEquals();
+        return EqualsBuilder.reflectionEquals(this, o);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(name)
-                .append(isbn)
-                .append(description)
-                .append(price)
-                .toHashCode();
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }
