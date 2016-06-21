@@ -21,7 +21,6 @@ public class BookDAOImpl implements BookDAO {
         session.beginTransaction();
         session.save(book);
 
-        session.getTransaction().commit();
     }
 
     @SuppressWarnings("unchecked")
