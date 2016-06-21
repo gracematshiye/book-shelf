@@ -41,27 +41,40 @@ public class BookDaoTest {
     }
 
     @Test
-    public void testBookAndItElementsNotNull() throws Exception {
-        //test book not null
-        Assert.assertNotNull(book);
+    public void testBookAndItElementsNotNull() {
 
-        //test book element not null
-        Assert.assertEquals(BOOK_NAME, book.getName());
-        Assert.assertEquals(BOOK_ISBN, book.getIsbn());
-        Assert.assertEquals(BOOK_DESCRIPTION, book.getDescription());
-        Assert.assertEquals(BOOK_PRICE, book.getPrice());
+        try {
+            //test book not null
+            Assert.assertNotNull(book);
+
+            //test book element not null
+            Assert.assertEquals(BOOK_NAME, book.getName());
+            Assert.assertEquals(BOOK_ISBN, book.getIsbn());
+            Assert.assertEquals(BOOK_DESCRIPTION, book.getDescription());
+            Assert.assertEquals(BOOK_PRICE, book.getPrice());
+
+        } catch (Exception ex){
+
+            ex.printStackTrace();
+        }
+
     }
 
     @Test
-    public void testAddAndGetBook() throws Exception {
+    public void testAddAndGetBook()  {
 
-        bookDAO.addBook(book);
+        try {
+            bookDAO.addBook(book);
 
-        List<Book> bookList = bookDAO.getBooks();
+            List<Book> bookList = bookDAO.getBooks();
 
-        Assert.assertEquals(book.getName(), bookList.get(0).getName());
-        Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
-        Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
-        Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+            Assert.assertEquals(book.getName(), bookList.get(0).getName());
+            Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
+            Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
+            Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 }

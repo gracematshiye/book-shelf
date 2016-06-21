@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.junit.Assert.fail;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
@@ -42,28 +44,48 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testBookListEqualZero() throws Exception {
-        List<Book> bookList = bookService.getBooks();
-        Assert.assertEquals(0 , bookList.size());
+    public void testBookListEqualZero() {
+
+      try {
+          List<Book> bookList = bookService.getBooks();
+          Assert.assertEquals(0 , bookList.size());
+
+      } catch (Exception ex){
+          ex.printStackTrace();
+          fail("Could not test book equal to zero");
+      }
     }
 
     @Test
-    public void testBookListEqualOne() throws Exception {
-        bookService.addBook(book);
+    public void testBookListEqualOne() {
+        try {
+            bookService.addBook(book);
 
-        List<Book> bookList = bookService.getBooks();
-        Assert.assertEquals(1 , bookList.size());
+            List<Book> bookList = bookService.getBooks();
+            Assert.assertEquals(1 , bookList.size());
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not test book equal to one");
+        }
     }
 
     @Test
     public void testAddBookReturnBook() throws Exception {
-        bookService.addBook(book);
 
-        List<Book> bookList = bookService.getBooks();
+        try {
+            bookService.addBook(book);
 
-        Assert.assertEquals(book.getName(), bookList.get(0).getName());
-        Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
-        Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
-        Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+            List<Book> bookList = bookService.getBooks();
+
+            Assert.assertEquals(book.getName(), bookList.get(0).getName());
+            Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
+            Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
+            Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not test add book return book");
+        }
     }
 }
