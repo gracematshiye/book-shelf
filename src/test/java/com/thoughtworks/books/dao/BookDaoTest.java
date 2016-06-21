@@ -5,11 +5,10 @@ import com.thoughtworks.books.entity.Book;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-@Transactional
+
 public class BookDaoTest {
 
     private Book book;
