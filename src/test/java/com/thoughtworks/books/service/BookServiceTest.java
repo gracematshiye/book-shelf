@@ -1,5 +1,4 @@
-package com.thoughtworks.books.dao;
-
+package com.thoughtworks.books.service;
 
 import com.thoughtworks.books.entity.Book;
 import org.junit.Assert;
@@ -14,10 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
 @Transactional
-public class BookDaoTest {
+public class BookServiceTest {
 
     private Book book;
 
@@ -27,7 +27,8 @@ public class BookDaoTest {
     private final BigDecimal BOOK_PRICE = new BigDecimal(123);
 
     @Autowired
-    private BookDAO bookDAO;
+    private BookService bookService;
+
 
     @Before
     public void setUp() {
@@ -41,23 +42,24 @@ public class BookDaoTest {
     }
 
     @Test
-    public void testBookAndItElementsNotNull() throws Exception {
-        //test book not null
-        Assert.assertNotNull(book);
-
-        //test book element not null
-        Assert.assertEquals(BOOK_NAME, book.getName());
-        Assert.assertEquals(BOOK_ISBN, book.getIsbn());
-        Assert.assertEquals(BOOK_DESCRIPTION, book.getDescription());
-        Assert.assertEquals(BOOK_PRICE, book.getPrice());
+    public void testBookListEqualZero() throws Exception {
+        List<Book> bookList = bookService.getBooks();
+        Assert.assertEquals(0 , bookList.size());
     }
 
     @Test
-    public void testAddAndGetBook() throws Exception {
+    public void testBookListEqualOne() throws Exception {
+        bookService.addBook(book);
 
-        bookDAO.addBook(book);
+        List<Book> bookList = bookService.getBooks();
+        Assert.assertEquals(1 , bookList.size());
+    }
 
-        List<Book> bookList = bookDAO.getBooks();
+    @Test
+    public void testAddBookReturnBook() throws Exception {
+        bookService.addBook(book);
+
+        List<Book> bookList = bookService.getBooks();
 
         Assert.assertEquals(book.getName(), bookList.get(0).getName());
         Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
