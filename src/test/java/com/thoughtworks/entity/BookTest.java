@@ -1,5 +1,6 @@
-package com.thoughtworks.books.entity;
+package com.thoughtworks.entity;
 
+import com.thoughtworks.books.entity.Book;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
