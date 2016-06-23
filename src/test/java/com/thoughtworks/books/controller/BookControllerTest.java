@@ -61,16 +61,6 @@ public class BookControllerTest {
     @Test
     public void itShouldDisplayBookShop() throws Exception {
 
-//        when(bookService.getBooks()).thenReturn(bookList);
-
-        System.out.println(bookService.getBooks().size());
-        ModelMap modelMap = new ModelMap();
-        String viewName = bookController.displayAll(modelMap);
-//        Assert.assertThat((List<Book>) modelMap.get("bookList"), is(bookList));
-//        Assert.assertEquals(1,bookService.getBooks().size());
-//        Assert.assertEquals(viewName,"bookShop");
-
-
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -78,6 +68,5 @@ public class BookControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
 
         verify(bookService, times(1)).getBooks();
-//        verifyNoMoreInteractions(bookService);
     }
 }
