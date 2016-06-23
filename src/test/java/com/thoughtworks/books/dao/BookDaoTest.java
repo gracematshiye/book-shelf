@@ -7,27 +7,28 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.fail;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/test-data-access-servlet.xml")
+@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/spring-servlet-dao-test.xml")
 @Transactional
 public class BookDaoTest {
 
-    private Book book;
-
-    private final String BOOK_NAME = "Java";
-    private final String BOOK_ISBN = "boo-101";
-    private final String BOOK_DESCRIPTION = "learn the fundamentals of OOP in java";
-    private final BigDecimal BOOK_PRICE = new BigDecimal(123);
-
     @Autowired
     private BookDAO bookDAO;
+
+    private Book book;
+
+    private List<Book> bookList = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -41,27 +42,52 @@ public class BookDaoTest {
     }
 
     @Test
-    public void testBookAndItElementsNotNull() throws Exception {
-        //test book not null
-        Assert.assertNotNull(book);
+    public void testBookNotNull() {
+       try {
+           Assert.assertNotNull(book);
 
-        //test book element not null
-        Assert.assertEquals(BOOK_NAME, book.getName());
-        Assert.assertEquals(BOOK_ISBN, book.getIsbn());
-        Assert.assertEquals(BOOK_DESCRIPTION, book.getDescription());
-        Assert.assertEquals(BOOK_PRICE, book.getPrice());
+       } catch (Exception ex){
+           ex.printStackTrace();
+           fail("Book is equal to null");
+       }
     }
 
     @Test
-    public void testAddAndGetBook() throws Exception {
+    @Transactional
+    @Rollback(true)
+    public void testAddBook() throws Exception {
+        try {
+            bookDAO.addBook(book);
+            bookList = bookDAO.getBooks();
+            Assert.assertTrue(bookList.size() != 0);
 
-        bookDAO.addBook(book);
-
-        List<Book> bookList = bookDAO.getBooks();
-
-        Assert.assertEquals(book.getName(), bookList.get(0).getName());
-        Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
-        Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
-        Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not add book");
+        }
     }
+
+    @Test
+    @Rollback(true)
+    public void testGetBook() throws Exception {
+        try {
+            bookDAO.addBook(book);
+            bookList = bookDAO.getBooks();
+
+            Assert.assertEquals(book.getName(), bookList.get(0).getName());
+            Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
+            Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
+            Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not get book");
+        }
+    }
+
+
+    private final String BOOK_NAME = "Java";
+    private final String BOOK_ISBN = "boo-101";
+    private final String BOOK_DESCRIPTION = "learn the fundamentals of OOP in java";
+    private final BigDecimal BOOK_PRICE = new BigDecimal(123);
 }

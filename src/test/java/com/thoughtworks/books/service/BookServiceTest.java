@@ -8,39 +8,42 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/test-data-access-servlet.xml")
+@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/spring-servlet-dao-test.xml")
 @Transactional
+@TransactionConfiguration(transactionManager="transactionManager", defaultRollback = false)
+@WebAppConfiguration
 public class BookServiceTest {
-
-    private Book book;
-
-    private final String BOOK_NAME = "Java";
-    private final String BOOK_ISBN = "boo-101";
-    private final String BOOK_DESCRIPTION = "learn the fundamentals of OOP in java";
-    private final BigDecimal BOOK_PRICE = new BigDecimal(123);
 
     @Autowired
     private BookService bookService;
 
     private BookDAO bookDAO;
 
+    private Book book;
+
+    private List<Book> bookList = new ArrayList<>();
 
     @Before
     public void setUp() {
-
-        bookDAO = Mockito.mock(BookDAO.class);
-
         book = new Book();
 
         book.setName(BOOK_NAME);
@@ -50,11 +53,11 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testBookListEqualZero() {
+    public void testBookListEqualEmpty() {
 
       try {
-          List<Book> bookList = bookService.getBooks();
-          Assert.assertEquals(0 , bookList.size());
+          bookList = bookService.getBooks();
+          Assert.assertTrue(bookList.size() == 0);
 
       } catch (Exception ex){
           ex.printStackTrace();
@@ -63,12 +66,13 @@ public class BookServiceTest {
     }
 
     @Test
+    @Rollback(true)
     public void testBookListEqualOne() {
         try {
             bookService.addBook(book);
+            bookList = bookService.getBooks();
 
-            List<Book> bookList = bookService.getBooks();
-            Assert.assertEquals(1 , bookList.size());
+            Assert.assertTrue(bookList.size() == 1);
 
         } catch (Exception ex){
             ex.printStackTrace();
@@ -77,12 +81,43 @@ public class BookServiceTest {
     }
 
     @Test
+    @Rollback(true)
+    public void testAddBook() {
+      try {
+
+          bookService.addBook(book);
+          Assert.assertNotNull(bookService);
+
+      } catch (Exception ex){
+          ex.printStackTrace();
+          fail("Could not save book");
+      }
+    }
+
+    @Test
+    @Rollback(true)
+    public void testGetBooks() throws Exception {
+        try {
+            bookService.addBook(book);
+            bookList = bookService.getBooks();
+
+            Assert.assertTrue(bookList.size() != 0);
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not get book");
+        }
+    }
+
+    @Test
+    @Rollback(true)
     public void testAddBookReturnBook() throws Exception {
 
         try {
             bookService.addBook(book);
+            bookList = bookService.getBooks();
 
-            List<Book> bookList = bookService.getBooks();
+            Assert.assertTrue(bookList.size() != 0);
 
             Assert.assertEquals(book.getName(), bookList.get(0).getName());
             Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
@@ -94,4 +129,10 @@ public class BookServiceTest {
             fail("Could not test add book return book");
         }
     }
+
+    private final String BOOK_NAME = "Java";
+    private final String BOOK_ISBN = "boo-101";
+    private final String BOOK_DESCRIPTION = "learn the fundamentals of OOP in java";
+    private final BigDecimal BOOK_PRICE = new BigDecimal(123);
+
 }
