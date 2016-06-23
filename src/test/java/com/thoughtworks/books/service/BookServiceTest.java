@@ -1,8 +1,7 @@
-package com.thoughtworks.service;
+package com.thoughtworks.books.service;
 
 import com.thoughtworks.books.dao.BookDAO;
 import com.thoughtworks.books.entity.Book;
-import com.thoughtworks.books.service.BookService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

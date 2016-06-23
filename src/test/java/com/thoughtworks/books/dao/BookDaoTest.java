@@ -1,7 +1,6 @@
-package com.thoughtworks.dao;
+package com.thoughtworks.books.dao;
 
 
-import com.thoughtworks.books.dao.BookDAO;
 import com.thoughtworks.books.entity.Book;
 import org.junit.Assert;
 import org.junit.Before;
