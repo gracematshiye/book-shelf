@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -20,6 +21,9 @@ public class BookController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String displayAll(ModelMap modelMap) {
+
+//        Book book = new Book("JAVA","book-101", "Learn java fundamentals", new BigDecimal(123));
+//        bookService.addBook(book);
 
         List<Book> books = this.bookService.getBooks();
 

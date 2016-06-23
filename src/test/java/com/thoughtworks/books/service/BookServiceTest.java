@@ -27,7 +27,7 @@ import static org.mockito.Mockito.verify;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/spring-servlet-dao-test.xml")
+@ContextConfiguration("file:src/test/webapp/resources/spring-servlet-dao-test.xml")
 @Transactional
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = false)
 @WebAppConfiguration
