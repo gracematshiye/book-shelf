@@ -1,6 +1,5 @@
 package com.thoughtworks.books.controller;
 
-import com.thoughtworks.books.controller.BookController;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
 import org.junit.Before;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:test-mvc-dispatcher-servlet.xml")
+@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/test-mvc-dispatcher-servlet.xml")
 public class BookControllerTest {
 
     private MockMvc mockMvc;

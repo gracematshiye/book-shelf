@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
+@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/test-data-access-servlet.xml")
 @Transactional
 public class BookDaoTest {
 

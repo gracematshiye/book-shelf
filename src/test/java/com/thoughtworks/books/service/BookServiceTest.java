@@ -19,7 +19,7 @@ import static org.junit.Assert.fail;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
+@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/test-data-access-servlet.xml")
 @Transactional
 public class BookServiceTest {
 
