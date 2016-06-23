@@ -12,8 +12,13 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Autowired
+
     private BookDAO bookDAO;
+
+    @Autowired
+    public BookServiceImpl(BookDAO bookDAO){
+        this.bookDAO = bookDAO;
+    }
 
     @Override
     @Transactional

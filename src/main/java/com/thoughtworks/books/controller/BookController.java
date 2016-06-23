@@ -8,8 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.math.BigDecimal;
 import java.util.List;
+
 
 @Controller
 @RequestMapping(value = "/")
@@ -27,4 +27,5 @@ public class BookController {
 
         return "bookShop";
     }
+
 }

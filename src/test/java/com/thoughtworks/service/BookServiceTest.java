@@ -1,10 +1,13 @@
-package com.thoughtworks.books.service;
+package com.thoughtworks.service;
 
+import com.thoughtworks.books.dao.BookDAO;
 import com.thoughtworks.books.entity.Book;
+import com.thoughtworks.books.service.BookService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,9 +34,13 @@ public class BookServiceTest {
     @Autowired
     private BookService bookService;
 
+    private BookDAO bookDAO;
+
 
     @Before
     public void setUp() {
+
+        bookDAO = Mockito.mock(BookDAO.class);
 
         book = new Book();
 
