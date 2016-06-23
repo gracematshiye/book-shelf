@@ -12,8 +12,13 @@ import java.util.List;
 @Repository
 public class BookDAOImpl implements BookDAO {
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public BookDAOImpl(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void addBook(Book book) {
