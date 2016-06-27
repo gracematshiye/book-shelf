@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,13 +20,11 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/spring-servlet-dao-test.xml")
+@ContextConfiguration("file:src/test/webapp/resources/spring-servlet-dao-test.xml")
 @Transactional
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = false)
 @WebAppConfiguration
@@ -55,14 +52,14 @@ public class BookServiceTest {
     @Test
     public void testBookListEqualEmpty() {
 
-      try {
-          bookList = bookService.getBooks();
-          Assert.assertTrue(bookList.size() == 0);
+        try {
+            bookList = bookService.getBooks();
+            Assert.assertTrue(bookList.size() == 0);
 
-      } catch (Exception ex){
-          ex.printStackTrace();
-          fail("Could not test book equal to zero");
-      }
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not test book equal to zero");
+        }
     }
 
     @Test
@@ -83,15 +80,15 @@ public class BookServiceTest {
     @Test
     @Rollback(true)
     public void testAddBook() {
-      try {
+        try {
 
-          bookService.addBook(book);
-          Assert.assertNotNull(bookService);
+            bookService.addBook(book);
+            Assert.assertNotNull(bookService);
 
-      } catch (Exception ex){
-          ex.printStackTrace();
-          fail("Could not save book");
-      }
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not save book");
+        }
     }
 
     @Test

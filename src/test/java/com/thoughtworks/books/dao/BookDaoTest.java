@@ -19,7 +19,7 @@ import java.util.List;
 import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/WEB-INF/resources/spring-servlet-dao-test.xml")
+@ContextConfiguration("file:src/test/webapp/resources/spring-servlet-dao-test.xml")
 @Transactional
 public class BookDaoTest {
 
@@ -59,7 +59,8 @@ public class BookDaoTest {
         try {
             bookDAO.addBook(book);
             bookList = bookDAO.getBooks();
-            Assert.assertTrue(bookList.size() != 0);
+
+            Assert.assertNotNull(bookList);
 
         } catch (Exception ex){
             ex.printStackTrace();

@@ -10,13 +10,13 @@
     <title>Title</title>
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 
-    //<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" >
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" style="margin-top:20px">
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-top:15px">
   <div class="container-fluid">
     <div class="navbar-header">
  			<a class="navbar-brand" href="#">Home</a>
@@ -32,22 +32,38 @@
 
 <!-- Displaying books-->
 <div class="container">
+
 <center>
     <c:choose>
         <c:when test="${!empty books}">
             <ul>
                 <c:forEach items="${books}" var="book">
-                    <div style="box-shadow: 5px 5px 5px 5px #888888; width: 700px;">
+                    <div style="box-shadow: 5px 5px 5px 5px #888888; width: 700px; margin-bottom: 20px;">
+                        <u><h3><b>Book Number #${book.id}</b></h3></u>
 
-                      <div class = "thumbnail" style="height: 200px; width:200px; margin-left:10px; margin-top:10px; ">
-                             <img alt="Mountain View" style="width:100px;height:100px;">
-                      </div>
+                        <div style="margin-left:-450px">
+                            <img src = "<c:url value="/resources/images/book.jpg"/>" style="width:200px;height:200px;">
+                        </div>
 
-                      <div class = "caption">
-                          <div class="panel-heading"> ${book.name}</div>
-                          <div class="panel-body"> <i style="color:red;"> R${book.price}</i></br><br/> ${book.description}</div>
-                      </div>
-                          <button type="button" class="btn btn-primary" style="margin-left:500px; margin-top:-50px;" onClick="click()">Add to Cart</button>
+                        <div style="margin-top:-200px; margin-left: -90px">
+                            <b>${book.name}</b>
+                        </div>
+
+                        <div style="margin-left: -150px;">
+                            <div class="panel-body" style="margin-bottom:130px; color:red;"> R ${book.price}</div>
+                        </div>
+
+                        <div style="margin-top:150px">
+                            <ul>
+                                <ol>
+                                    ${book.description}
+                                </ol>
+                            </ul>
+                        </div>
+
+                        <div style=" margin-left: 550px; ">
+                            <a href="<c:url value='/cart/${book.id}' />" class="btn btn-primary" style="margin-bottom:20px" >Add to Cart</a>
+                        </div>
 
                     </div>
                 </c:forEach>
@@ -66,9 +82,11 @@
             </div>
         </c:otherwise>
     </c:choose>
-
-
 </center>
+
+<br/>
+<br/>
+
 </div>
 </div>
 
