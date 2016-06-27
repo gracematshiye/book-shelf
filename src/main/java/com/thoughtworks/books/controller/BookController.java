@@ -22,8 +22,6 @@ public class BookController {
     @RequestMapping(method = RequestMethod.GET)
     public String displayAll(ModelMap modelMap) {
 
-
-
         List<Book> books = this.bookService.getBooks();
 
         modelMap.addAttribute("books", books);
