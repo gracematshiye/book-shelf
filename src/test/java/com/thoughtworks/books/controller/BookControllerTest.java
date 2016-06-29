@@ -49,14 +49,12 @@ public class BookControllerTest {
         bookList.add(book1);
 
         bookService.addBook(book1);
-
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 
     }
 
     @Test
     public void itShouldDisplayBookShop() throws Exception {
-
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())

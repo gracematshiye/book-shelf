@@ -19,6 +19,9 @@ public class BookServiceImpl implements BookService {
         this.bookDAO = bookDAO;
     }
 
+    public BookServiceImpl() {
+
+    }
 
 
     @Override

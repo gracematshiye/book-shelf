@@ -2,6 +2,8 @@ package com.thoughtworks.books.dao;
 
 
 import com.thoughtworks.books.entity.Book;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +18,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/test/webapp/resources/spring-servlet-dao-test.xml")
 @Transactional
+@Rollback(true)
 public class BookDaoTest {
 
     @Autowired
@@ -28,67 +33,51 @@ public class BookDaoTest {
 
     private Book book;
 
-    private List<Book> bookList = new ArrayList<>();
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    private Session session;
 
     @Before
     public void setUp() {
-
-        book = new Book();
-
-        book.setName(BOOK_NAME);
-        book.setIsbn(BOOK_ISBN);
-        book.setDescription(BOOK_DESCRIPTION);
-        book.setPrice(BOOK_PRICE);
+        session = sessionFactory.getCurrentSession();
+        book = new Book("Java", "boo-101", "learn the fundamentals of OOP in java", new BigDecimal(123));
     }
 
     @Test
-    public void testBookNotNull() {
-       try {
-           Assert.assertNotNull(book);
-
-       } catch (Exception ex){
-           ex.printStackTrace();
-           fail("Book is equal to null");
-       }
-    }
-
-    @Test
-    @Transactional
-    @Rollback(true)
     public void testAddBook() throws Exception {
         try {
+            session.beginTransaction();
+            Assert.assertEquals(0, session.createQuery("from Book").list().size());
+
             bookDAO.addBook(book);
-            bookList = bookDAO.getBooks();
 
-            Assert.assertNotNull(bookList);
+            Assert.assertEquals(1, session.createQuery("from Book").list().size());
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-            fail("Could not add book");
+            fail("Could not save book");
         }
     }
 
     @Test
-    @Rollback(true)
     public void testGetBook() throws Exception {
         try {
+            assertEquals(0, bookDAO.getBooks().size());
+
             bookDAO.addBook(book);
-            bookList = bookDAO.getBooks();
+            assertEquals(1, bookDAO.getBooks().size());
+
+            List<Book> bookList = bookDAO.getBooks();
 
             Assert.assertEquals(book.getName(), bookList.get(0).getName());
             Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
             Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
             Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-            fail("Could not get book");
+            fail("Could not retrieve book");
         }
     }
-
-
-    private final String BOOK_NAME = "Java";
-    private final String BOOK_ISBN = "boo-101";
-    private final String BOOK_DESCRIPTION = "learn the fundamentals of OOP in java";
-    private final BigDecimal BOOK_PRICE = new BigDecimal(123);
 }
