@@ -2,6 +2,7 @@ package com.thoughtworks.books.controller;
 
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +12,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,30 +43,71 @@ public class BookControllerTest {
     private BookService bookService;
 
     @Autowired
-    private BookController bookController;
+    private BookController controller;
 
-    private List<Book> bookList = new ArrayList<>();
-    private Book book1 = new Book("Java OOP", "1-5555-t166-0", "Java Book", new BigDecimal(150));
-
+    List<Book> bookList = new ArrayList<>();
+    Book first = new Book("Java", "1-5555-t166-0", "Java Book", new BigDecimal(150));
 
     @Before
     public void setUp() throws Exception {
 
-        bookList.add(book1);
-
-        bookService.addBook(book1);
+        bookList.add(first);
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        when(bookService.getBooks()).thenReturn(bookList);
 
     }
 
     @Test
-    public void itShouldDisplayBookShop() throws Exception {
+    public void testDisplayMethodIsCalled() throws Exception {
+
+        String viewName = controller.displayAll(new ModelMap());
+        Assert.assertEquals("bookShop", viewName);
+
+    }
+
+    @Test
+    public void testGetBooksMethodFromServiceIsCalled() throws Exception {
+
+        Assert.assertEquals(bookList,bookService.getBooks());
+        verify(bookService, times(1)).getBooks();
+
+
+    }
+
+    @Test
+    public void isRetrievedMockObject() throws Exception {
+
+        when(bookService.getBooks()).thenReturn(bookList);
+        Assert.assertEquals(bookList, bookService.getBooks());
+        //Mockito.verify(bookService,atLeastOnce()).getBooks();
+        verify(bookService, times(1)).getBooks();
+    }
+
+    @Test
+    public void testVerifyTheHTTPStatusIsOkay() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void testBookListHasOneElement() throws Exception {
 
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("bookShop"))
-                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
+                .andExpect(model().attribute("books", hasSize(1)));
 
-        verify(bookService, times(1)).getBooks();
+    }
+
+    @Test
+    public void testAttributeExists() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(model().attribute("books", hasItem(
+                        allOf(
+                                hasProperty("name", is("Java")),
+                                hasProperty("isbn", is("1-5555-t166-0")),
+                                hasProperty("description", is("Java Book")),
+                                hasProperty("price", is(new BigDecimal(150)))
+                        ))));
+
     }
 }

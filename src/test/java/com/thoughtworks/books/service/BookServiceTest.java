@@ -1,71 +1,98 @@
 package com.thoughtworks.books.service;
 
-
 import com.thoughtworks.books.dao.BookDAO;
 import com.thoughtworks.books.entity.Book;
-import com.thoughtworks.books.service.impl.BookServiceImpl;
-import org.junit.After;
+import com.thoughtworks.books.service.BookService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.springframework.test.annotation.Rollback;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.fail;
 
-@Rollback(true)
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
+@Transactional
 public class BookServiceTest {
 
-    @Mock
-    private BookDAO bookDAO;
+    private Book book;
 
-    @Mock
-    private List<Book> books = new ArrayList<Book>();
+    private final String BOOK_NAME = "Java";
+    private final String BOOK_ISBN = "boo-101";
+    private final String BOOK_DESCRIPTION = "learn the fundamentals of OOP in java";
+    private final BigDecimal BOOK_PRICE = new BigDecimal(123);
 
-    @InjectMocks
+    @Autowired
     private BookService bookService;
 
+    private BookDAO bookDAO;
+
+
     @Before
-    public void setUp() throws Exception {
-        bookService = new BookServiceImpl();
+    public void setUp() {
 
-        MockitoAnnotations.initMocks(this);
+        bookDAO = Mockito.mock(BookDAO.class);
+
+        book = new Book();
+
+        book.setName(BOOK_NAME);
+        book.setIsbn(BOOK_ISBN);
+        book.setDescription(BOOK_DESCRIPTION);
+        book.setPrice(BOOK_PRICE);
     }
 
     @Test
-    public void testAddBook() {
-        try {
+    public void testBookListEqualZero() {
 
-            doNothing().when(bookDAO).addBook(any(Book.class));
-            bookService.addBook(any(Book.class));
-            verify(bookDAO, atLeastOnce()).addBook(any(Book.class));
+      try {
+          List<Book> bookList = bookService.getBooks();
+          Assert.assertEquals(0 , bookList.size());
 
-        } catch (Exception ex){
-            ex.printStackTrace();
-            fail("Could not save book");
-        }
+      } catch (Exception ex){
+          ex.printStackTrace();
+          fail("Could not test book equal to zero");
+      }
     }
-
 
     @Test
-    public void testGetBooks() throws Exception {
+    public void testBookListEqualOne() {
         try {
+            bookService.addBook(book);
 
-            when(bookDAO.getBooks()).thenReturn(books);
-            assertEquals(bookService.getBooks(), books);
-            verify(bookDAO, atLeastOnce()).getBooks();
+            List<Book> bookList = bookService.getBooks();
+            Assert.assertEquals(1 , bookList.size());
 
         } catch (Exception ex){
             ex.printStackTrace();
-            fail("Could not get book");
+            fail("Could not test book equal to one");
         }
     }
 
+    @Test
+    public void testAddBookReturnBook() throws Exception {
+
+        try {
+            bookService.addBook(book);
+
+            List<Book> bookList = bookService.getBooks();
+
+            Assert.assertEquals(book.getName(), bookList.get(0).getName());
+            Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
+            Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
+            Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+            fail("Could not test add book return book");
+        }
+    }
 }
