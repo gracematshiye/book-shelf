@@ -2,10 +2,15 @@ package com.thoughtworks.books.controller;
 
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -36,13 +41,11 @@ public class BookControllerTest {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext wac;
 
-    @Autowired
-    private BookService bookService;
+    @Mock
+    private BookService bookService = new BookServiceImpl();
 
-    @Autowired
+    @InjectMocks
     private BookController controller;
 
     List<Book> bookList = new ArrayList<>();
@@ -52,7 +55,8 @@ public class BookControllerTest {
     public void setUp() throws Exception {
 
         bookList.add(first);
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(bookService.getBooks()).thenReturn(bookList);
 
     }
@@ -72,15 +76,6 @@ public class BookControllerTest {
         verify(bookService, times(1)).getBooks();
 
 
-    }
-
-    @Test
-    public void isRetrievedMockObject() throws Exception {
-
-        when(bookService.getBooks()).thenReturn(bookList);
-        Assert.assertEquals(bookList, bookService.getBooks());
-        //Mockito.verify(bookService,atLeastOnce()).getBooks();
-        verify(bookService, times(1)).getBooks();
     }
 
     @Test
