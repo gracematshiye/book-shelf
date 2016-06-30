@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -54,13 +55,21 @@ public class BookControllerTest {
     @Before
     public void setUp() throws Exception {
 
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+
         bookList.add(first);
+
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setViewResolvers(viewResolver).build();
         when(bookService.getBooks()).thenReturn(bookList);
 
     }
 
+    // Verify that name of the rendered view is ‘bookShop’
     @Test
     public void testDisplayMethodIsCalled() throws Exception {
 
@@ -69,6 +78,7 @@ public class BookControllerTest {
 
     }
 
+    // Verify that the getBooks method was called
     @Test
     public void testGetBooksMethodFromServiceIsCalled() throws Exception {
 
@@ -78,6 +88,7 @@ public class BookControllerTest {
 
     }
 
+     // Verify that the HTTP status code is 200.
     @Test
     public void testVerifyTheHTTPStatusIsOkay() throws Exception {
         mockMvc.perform(get("/"))
@@ -85,6 +96,7 @@ public class BookControllerTest {
 
     }
 
+    //Verify that the size of the book list is 1
     @Test
     public void testBookListHasOneElement() throws Exception {
 
@@ -93,6 +105,7 @@ public class BookControllerTest {
 
     }
 
+    //Verify that the book list contains the correct items
     @Test
     public void testAttributeExists() throws Exception {
         mockMvc.perform(get("/"))
@@ -103,6 +116,14 @@ public class BookControllerTest {
                                 hasProperty("description", is("Java Book")),
                                 hasProperty("price", is(new BigDecimal(150)))
                         ))));
+
+    }
+
+    //Verify that the request is forwarded to url ‘/WEB-INF/views/bookShop.jsp
+    @Test
+    public void testRequestIsForwardedToUrl() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
 
     }
 }
