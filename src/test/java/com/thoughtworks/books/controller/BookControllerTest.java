@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/test/webapp/resources/test-mvc-dispatcher-servlet.xml")
+@ContextConfiguration("file:src/test/webapp/resources/spring-applicationContext-controller.xml")
 public class BookControllerTest {
 
     private MockMvc mockMvc;
