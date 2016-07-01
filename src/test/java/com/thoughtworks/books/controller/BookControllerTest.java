@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.hamcrest.CoreMatchers.*;
@@ -41,7 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BookControllerTest {
 
     private MockMvc mockMvc;
-
 
     @Mock
     private BookService bookService = new BookServiceImpl();
@@ -100,8 +100,14 @@ public class BookControllerTest {
     @Test
     public void testBookListHasOneElement() throws Exception {
 
-        mockMvc.perform(get("/"))
-                .andExpect(model().attribute("books", hasSize(1)));
+      try {
+          mockMvc.perform(get("/"))
+                  .andExpect(model().attribute("books", hasSize(1)));
+
+      } catch (Exception e){
+          e.printStackTrace();
+          fail("Wrong URL");
+      }
 
     }
 
@@ -111,10 +117,10 @@ public class BookControllerTest {
         mockMvc.perform(get("/"))
                 .andExpect(model().attribute("books", hasItem(
                         allOf(
-                                hasProperty("name", is("Java")),
-                                hasProperty("isbn", is("1-5555-t166-0")),
-                                hasProperty("description", is("Java Book")),
-                                hasProperty("price", is(new BigDecimal(150)))
+                            hasProperty("name", is("Java")),
+                            hasProperty("isbn", is("1-5555-t166-0")),
+                            hasProperty("description", is("Java Book")),
+                            hasProperty("price", is(new BigDecimal(150)))
                         ))));
 
     }

@@ -22,8 +22,12 @@ public class BookController {
     @RequestMapping(method = RequestMethod.GET)
     public String displayAll(ModelMap modelMap) {
 
+
         List<Book> books = this.bookService.getBooks();
 
+        int book_size = books.size();
+
+        modelMap.addAttribute("book_size", book_size);
         modelMap.addAttribute("books", books);
 
         return "bookShop";
