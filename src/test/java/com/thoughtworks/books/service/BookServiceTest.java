@@ -22,7 +22,7 @@ public class BookServiceTest {
     @Mock
     private BookDAO bookDAO;
 
-    @Spy
+    @Mock
     private List<Book> bookList = new ArrayList<Book>();
 
     @InjectMocks
