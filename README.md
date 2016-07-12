@@ -9,4 +9,5 @@
 
 ####To run this project
 * Clone it (using terminal) : git clone https://github.com/gracematshiye/book-shelf.git
-* Run : mvn clean compile package jetty:run
+* Run:  mvn clean compile package jetty:run
+* port: http://localhost:9090/book
