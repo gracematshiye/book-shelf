@@ -1,7 +1,5 @@
-package com.thoughtworks.books;
+package com.thoughtworks.books.entity;
 
-import com.thoughtworks.books.entity.Book;
-import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +60,9 @@ public class ShoppingCartTest {
     public void testAddOneBookReturnTotalPrice() throws Exception {
         Book book = new Book("java", "HHD-BF789DFS-SDF","JAVA BOOK", new BigDecimal(100));
         shoppingCart.addToCart(book);
+
         Assert.assertEquals(new BigDecimal(100), shoppingCart.getCartTotal());
+        Assert.assertEquals(1, shoppingCart.getShopCartCount());
     }
 
     @Test
@@ -73,11 +73,16 @@ public class ShoppingCartTest {
         shoppingCart.addToCart(book2);
 
         Assert.assertEquals(new BigDecimal(200), shoppingCart.getCartTotal());
+        Assert.assertEquals(2, shoppingCart.getShopCartCount());
     }
-
 
     @Test
-    public void testAddBook() throws Exception {
+    public void testBookName() throws Exception {
+        Book book1 = new Book("java", "HHD-BF789DFS-SDF","JAVA BOOK", new BigDecimal(100));
+       // shoppingCart.addToCart(book1);
 
+        Assert.assertEquals("java", shoppingCart.getBookName(book1));
     }
+
+
 }

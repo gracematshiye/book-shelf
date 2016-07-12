@@ -82,7 +82,6 @@ public class BookControllerTest {
         Assert.assertEquals(bookList,bookService.getBooks());
         verify(bookService, times(1)).getBooks();
 
-
     }
 
      // Verify that the HTTP status code is 200.
@@ -90,6 +89,14 @@ public class BookControllerTest {
     public void testVerifyTheHTTPStatusIsOkay() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk());
+
+    }
+
+    //Verify that the request is forwarded to url ‘/WEB-INF/views/bookShop.jsp
+    @Test
+    public void testRequestIsForwardedToUrl() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
 
     }
 
@@ -122,11 +129,5 @@ public class BookControllerTest {
 
     }
 
-    //Verify that the request is forwarded to url ‘/WEB-INF/views/bookShop.jsp
-    @Test
-    public void testRequestIsForwardedToUrl() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
 
-    }
 }

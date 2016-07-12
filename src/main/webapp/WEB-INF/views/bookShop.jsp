@@ -1,6 +1,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,13 +29,13 @@
  			<a class="navbar-brand" href="#">Home</a>
  			<a class="navbar-brand"  href="#">
                 <span class="glyphicon glyphicon-shopping-cart" style="margin-left: 1200px; margin-top:10px"></span>
-                <span class="badge" style="margin-top:-40px; margin-left:-22px" >${book_size}</span>
+                <span class="badge" style="margin-top:-40px; margin-left:-22px" >${cartSize}</span>
             </a>
  		</div>
  	</div>
  </nav>
 
-<div style = "margin-top:120px; margin-bottom:50px;">
+<div style = "margin-top:70px; ">
 
 <!-- Displaying books-->
 <div class="container" style="margin-left: 350px">
@@ -66,7 +68,7 @@
                     </div>
 
                     <div style=" margin-left: 550px; ">
-                        <a href="#" class="btn btn-primary" style="margin-bottom:20px" >Add to Cart</a>
+                        <a href="${pageContext.request.contextPath}/shop-cart/${book.id}" class="btn btn-primary" style="margin-bottom:20px" >Add to Cart</a>
                     </div>
 
                 </div>
