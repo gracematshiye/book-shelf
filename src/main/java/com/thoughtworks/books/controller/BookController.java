@@ -1,6 +1,7 @@
 package com.thoughtworks.books.controller;
 
 import com.thoughtworks.books.entity.Book;
+import com.thoughtworks.books.entity.ShoppingCart;
 import com.thoughtworks.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,6 @@ public class BookController {
 
 
         List<Book> books = this.bookService.getBooks();
-
-        int book_size = books.size();
-
-        modelMap.addAttribute("book_size", book_size);
         modelMap.addAttribute("books", books);
 
         return "bookShop";
