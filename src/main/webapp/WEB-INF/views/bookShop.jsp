@@ -1,42 +1,3 @@
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-<head>
-    <title>Title</title>
-
-    <link href="<c:url value="/resources/css/font-awesome.min.css" />" rel="stylesheet">
-    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" >
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js" />" ></script>
-</head>
-
-<body>
-
-<header>
-<nav class="navbar navbar-default navbar-fixed-top" style="Height:70px; margin-top:-5px">
-  <div class="container-fluid" style="margin-top:20px">
-    <div class="navbar-header">
- 			<a class="navbar-brand" href="${pageContext.request.contextPath}">Home</a>
- 			<a class="navbar-brand"  href="#">
-                <span class="glyphicon glyphicon-shopping-cart" style="margin-left: 1200px; margin-top:10px"></span>
-
-                <span class="badge" style="margin-top:-40px; margin-left:-22px" >${cartSize}</span>
-            </a>
- 		</div>
- 	</div>
- </nav>
-</header>
 
 
 <div style = "margin-top:70px; ">
@@ -96,24 +57,3 @@
 </div>
 </div>
 
-
-<footer style="background-color:#f5f5f5">
-<hr>
-<div class="container">
-    <center>
-        <p>&copy; 2016</p>
-    </center>
-    <hr>
-
-    <div class="text-center center-block">
-    <p class="txt-railway">- book-shelf.com -</p>
-        <br />
-            <a href="#"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
-            <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
-            <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
-    </div>
-
-</footer>
-
- </body>
- </html>

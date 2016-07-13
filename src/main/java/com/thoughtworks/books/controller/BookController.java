@@ -29,7 +29,7 @@ public class BookController {
         List<Book> books = this.bookService.getBooks();
         modelMap.addAttribute("books", books);
 
-        return "bookShop";
+        return "main";
     }
 
     @RequestMapping(value = "/shop-cart/{id}")
@@ -41,7 +41,7 @@ public class BookController {
         modelMap.addAttribute("books", books);
 
         modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartCount());
-        return "bookShop";
+        return "main";
     }
 
 }

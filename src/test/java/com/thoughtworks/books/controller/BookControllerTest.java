@@ -79,7 +79,7 @@ public class BookControllerTest {
     public void testDisplayMethodIsCalled() throws Exception {  // from displayAll method
 
         String viewName = controller.displayAll(new ModelMap());
-        Assert.assertEquals("bookShop", viewName);
+        Assert.assertEquals("main", viewName);
 
     }
 
@@ -149,7 +149,7 @@ public class BookControllerTest {
     @Test
     public void testRequestIsForwardedToUrl() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/views/main.jsp"));
 
     }
 }

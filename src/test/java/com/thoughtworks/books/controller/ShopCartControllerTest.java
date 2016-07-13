@@ -72,7 +72,7 @@ public class ShopCartControllerTest {
     public void testAddToCartMethodIsCalled() throws Exception {  //from addToCart method
         int id = 1;
         mockMvc.perform(get("/shop-cart/" + id))
-                .andExpect(view().name("bookShop"));
+                .andExpect(view().name("main"));
     }
 
     /**
@@ -119,7 +119,7 @@ public class ShopCartControllerTest {
     @Test
     public void testRequestIsForwardedToUrl() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/views/main.jsp"));
 
     }
 }
