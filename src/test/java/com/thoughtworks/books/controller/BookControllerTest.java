@@ -2,6 +2,7 @@ package com.thoughtworks.books.controller;
 
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.ShoppingCart;
 import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,6 +44,9 @@ public class BookControllerTest {
     @Mock
     private BookService bookService = new BookServiceImpl();
 
+    @Mock
+    private ShoppingCart shoppingCart;
+
     @InjectMocks
     private BookController controller;
 
@@ -62,29 +66,40 @@ public class BookControllerTest {
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setViewResolvers(viewResolver).build();
+
         when(bookService.getBooks()).thenReturn(bookList);
 
     }
 
-    // Verify that name of the rendered view is ‘bookShop’
+    /**
+     * Verify that name of the rendered view is ‘bookShop’
+     * ==============================================================
+     * */
     @Test
-    public void testDisplayMethodIsCalled() throws Exception {
+    public void testDisplayMethodIsCalled() throws Exception {  // from displayAll method
 
         String viewName = controller.displayAll(new ModelMap());
         Assert.assertEquals("bookShop", viewName);
 
     }
 
-    // Verify that the getBooks method was called
+    /**
+     *  Verify that the  method was called
+     *  ==============================================================
+     **/
     @Test
-    public void testGetBooksMethodFromServiceIsCalled() throws Exception {
+    public void testGetBooksMethodFromServiceIsCalled() throws Exception {  //from BookService
 
         Assert.assertEquals(bookList,bookService.getBooks());
         verify(bookService, times(1)).getBooks();
 
+
     }
 
-     // Verify that the HTTP status code is 200.
+    /**
+     * Verify that the HTTP status code is 200.
+     * ===============================================================
+     **/
     @Test
     public void testVerifyTheHTTPStatusIsOkay() throws Exception {
         mockMvc.perform(get("/"))
@@ -92,17 +107,12 @@ public class BookControllerTest {
 
     }
 
-    //Verify that the request is forwarded to url ‘/WEB-INF/views/bookShop.jsp
+    /**
+     * Verify that the size of the book list is 1
+     * =====================================================================
+     **/
     @Test
-    public void testRequestIsForwardedToUrl() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
-
-    }
-
-    //Verify that the size of the book list is 1
-    @Test
-    public void testBookListHasOneElement() throws Exception {
+    public void testBookListHasOneElement() throws Exception {  //from BookService
 
       try {
           mockMvc.perform(get("/"))
@@ -115,9 +125,12 @@ public class BookControllerTest {
 
     }
 
-    //Verify that the book list contains the correct items
+    /**
+     * Verify that the book list contains the correct items
+     * ====================================================
+     **/
     @Test
-    public void testAttributeExists() throws Exception {
+    public void testAttributeExists() throws Exception {  //from BookService
         mockMvc.perform(get("/"))
                 .andExpect(model().attribute("books", hasItem(
                         allOf(
@@ -129,5 +142,14 @@ public class BookControllerTest {
 
     }
 
+    /**
+     * Verify that the request is forwarded to url ‘/WEB-INF/views/bookShop.jsp
+     * =========================================================================
+    **/
+    @Test
+    public void testRequestIsForwardedToUrl() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
 
+    }
 }

@@ -1,6 +1,10 @@
-package com.thoughtworks.books.entity;
+package com.thoughtworks.books.service;
 
 
+import com.thoughtworks.books.entity.Book;
+import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.impl.BookServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +14,9 @@ import java.util.List;
 
 @Service
 public class ShoppingCart {
+
+    @Autowired
+    private BookService bookService = new BookServiceImpl();
 
     private BigDecimal cartTotal = new BigDecimal(0);
     private List<Book> bookList = new ArrayList<>();

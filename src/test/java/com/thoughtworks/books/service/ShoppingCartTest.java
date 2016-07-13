@@ -1,5 +1,7 @@
-package com.thoughtworks.books.entity;
+package com.thoughtworks.books.service;
 
+import com.thoughtworks.books.entity.Book;
+import com.thoughtworks.books.service.ShoppingCart;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
