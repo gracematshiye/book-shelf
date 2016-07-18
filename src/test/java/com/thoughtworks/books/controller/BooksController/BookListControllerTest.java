@@ -1,8 +1,9 @@
-package com.thoughtworks.books.controller;
+package com.thoughtworks.books.controller.BooksController;
 
+import com.thoughtworks.books.controller.BookController;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
-import com.thoughtworks.books.service.ShoppingCart;
+import com.thoughtworks.books.service.ShoppingCartService;
 import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,11 +34,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("file:src/test/webapp/resources/spring-applicationContext-controller.xml")
-public class BookControllerTest {
+public class BookListControllerTest {
 
     private MockMvc mockMvc;
 
@@ -45,7 +45,7 @@ public class BookControllerTest {
     private BookService bookService = new BookServiceImpl();
 
     @Mock
-    private ShoppingCart shoppingCart;
+    private ShoppingCartService shoppingCartService;
 
     @InjectMocks
     private BookController controller;
@@ -68,32 +68,26 @@ public class BookControllerTest {
                 .setViewResolvers(viewResolver).build();
 
         when(bookService.getBooks()).thenReturn(bookList);
-
     }
 
     /**
      * Verify that name of the rendered view is ‘bookShop’
      * ==============================================================
-     * */
+     */
     @Test
     public void testDisplayMethodIsCalled() throws Exception {  // from displayAll method
-
         String viewName = controller.displayAll(new ModelMap());
-        Assert.assertEquals("main", viewName);
-
+        Assert.assertEquals("bookShop", viewName);
     }
 
     /**
-     *  Verify that the  method was called
-     *  ==============================================================
+     * Verify that the  method was called
+     * ==============================================================
      **/
     @Test
     public void testGetBooksMethodFromServiceIsCalled() throws Exception {  //from BookService
-
-        Assert.assertEquals(bookList,bookService.getBooks());
+        Assert.assertEquals(bookList, bookService.getBooks());
         verify(bookService, times(1)).getBooks();
-
-
     }
 
     /**
@@ -102,9 +96,8 @@ public class BookControllerTest {
      **/
     @Test
     public void testVerifyTheHTTPStatusIsOkay() throws Exception {
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/books"))
                 .andExpect(status().isOk());
-
     }
 
     /**
@@ -114,15 +107,14 @@ public class BookControllerTest {
     @Test
     public void testBookListHasOneElement() throws Exception {  //from BookService
 
-      try {
-          mockMvc.perform(get("/"))
-                  .andExpect(model().attribute("books", hasSize(1)));
+        try {
+            mockMvc.perform(get("/books"))
+                    .andExpect(model().attribute("books", hasSize(1)));
 
-      } catch (Exception e){
-          e.printStackTrace();
-          fail("Wrong URL");
-      }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Wrong URL");
+        }
     }
 
     /**
@@ -131,25 +123,35 @@ public class BookControllerTest {
      **/
     @Test
     public void testAttributeExists() throws Exception {  //from BookService
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/books"))
                 .andExpect(model().attribute("books", hasItem(
                         allOf(
-                            hasProperty("name", is("Java")),
-                            hasProperty("isbn", is("1-5555-t166-0")),
-                            hasProperty("description", is("Java Book")),
-                            hasProperty("price", is(new BigDecimal(150)))
+                                hasProperty("name", is("Java")),
+                                hasProperty("isbn", is("1-5555-t166-0")),
+                                hasProperty("description", is("Java Book")),
+                                hasProperty("price", is(new BigDecimal(150)))
                         ))));
+    }
 
+    @Test
+    public void testBookListAttributeExists() throws Exception {
+        mockMvc.perform(get("/books"))
+                .andExpect(model().attribute("books", this.bookService.getBooks()));
+    }
+
+    @Test
+    public void testCartSizeAttributeExists() throws Exception {
+        mockMvc.perform(get("/books"))
+                .andExpect(model().attribute("cartSize", this.shoppingCartService.getShopCartCount()));
     }
 
     /**
      * Verify that the request is forwarded to url ‘/WEB-INF/views/bookShop.jsp
      * =========================================================================
-    **/
+     **/
     @Test
     public void testRequestIsForwardedToUrl() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(forwardedUrl("/WEB-INF/views/main.jsp"));
-
+        mockMvc.perform(get("/books"))
+                .andExpect(forwardedUrl("/WEB-INF/views/bookShop.jsp"));
     }
 }

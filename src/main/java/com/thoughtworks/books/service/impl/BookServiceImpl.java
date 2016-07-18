@@ -1,6 +1,6 @@
 package com.thoughtworks.books.service.impl;
 
-import com.thoughtworks.books.dao.BookDAO;
+import com.thoughtworks.books.dao.BookDao;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private BookDAO bookDAO;
+    private BookDao bookDAO;
 
     @Autowired
-    public BookServiceImpl(BookDAO bookDAO){
+    public BookServiceImpl(BookDao bookDAO){
         this.bookDAO = bookDAO;
     }
 

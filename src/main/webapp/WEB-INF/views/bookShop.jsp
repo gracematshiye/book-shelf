@@ -1,15 +1,16 @@
 
 
+<%@include file="header.jsp" %>
 <div style = "margin-top:70px; ">
 
 <!-- Displaying books-->
-<div class="container" style="margin-left: 350px">
+<div class="container">
 
 <c:choose>
     <c:when test="${!empty books}">
         <ul>
             <c:forEach items="${books}" var="book">
-                <div style="box-shadow: -1px 0px 5px 3px rgba(212,212,219,1); width: 700px; margin-bottom: 20px;">
+                <div class="list-group-item" style = "width:800px; margin-top:30px; margin-left:100px">
                     <u><h3><b>Book Number #${book.id}</b></h3></u>
 
                     <div style="margin-left:20px">
@@ -32,8 +33,8 @@
                         </ul>
                     </div>
 
-                    <div style=" margin-left: 550px; ">
-                        <a href="${pageContext.request.contextPath}/shop-cart/${book.id}" class="btn btn-primary" style="margin-bottom:20px" >Add to Cart</a>
+                    <div style=" margin-left: 670px; ">
+                        <a href="${pageContext.request.contextPath}/shop-cart/${book.id}" class="btn btn-primary btn-inverse" style="margin-bottom:5px" >Add to Cart</a>
                     </div>
 
                 </div>
@@ -57,3 +58,4 @@
 </div>
 </div>
 
+<%@include file="footer.jsp" %>

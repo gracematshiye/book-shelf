@@ -4,7 +4,7 @@ import com.thoughtworks.books.entity.Book;
 
 import java.util.List;
 
-public interface BookDAO {
+public interface BookDao {
 
     public void addBook(Book book);
     public List<Book> getBooks();

@@ -10,9 +10,7 @@
     <div class="text-center center-block">
     <p class="txt-railway">- book-shelf.com -</p>
         <br />
-            <a href="#"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
-            <a href="#"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
-            <a href="#"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+            <span class="glyphicon glyphicon-shopping-cart" style="height:200px; width: 200px"></span>
     </div>
 
 </footer>

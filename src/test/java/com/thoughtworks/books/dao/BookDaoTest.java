@@ -24,7 +24,7 @@ import java.util.List;
 public class BookDaoTest {
 
     @Autowired
-    private BookDAO bookDAO;
+    private BookDao bookDAO;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -35,11 +35,14 @@ public class BookDaoTest {
 
     @Before
     public void setUp() {
-
         session = sessionFactory.getCurrentSession();
         book = new Book("Java", "book-101", "Learn java fundamentals in 21 days", new BigDecimal(123));
     }
 
+    /**
+     * Check if database state is 0, and then add a book using the addBook() method,
+     * again check if database state is 1
+     */
     @Test
     public void testAddBook() throws Exception {
         session.beginTransaction();
@@ -47,15 +50,18 @@ public class BookDaoTest {
 
         bookDAO.addBook(book);
         Assert.assertEquals(1, session.createQuery("from Book").list().size());
-
     }
 
+    /**
+     * Check if there are no books, if true, add a book using addBook() method, and then
+     * check if the book was added.
+     * check all book elements
+     */
     @Test
     public void testGetBooks() throws Exception {
         Assert.assertEquals(0, bookDAO.getBooks().size());
 
         bookDAO.addBook(book);
-
         Assert.assertEquals(1, bookDAO.getBooks().size());
 
         List<Book> bookList = bookDAO.getBooks();
@@ -64,6 +70,5 @@ public class BookDaoTest {
         Assert.assertEquals(book.getIsbn(), bookList.get(0).getIsbn());
         Assert.assertEquals(book.getDescription(), bookList.get(0).getDescription());
         Assert.assertEquals(book.getPrice(), bookList.get(0).getPrice());
-
     }
 }
