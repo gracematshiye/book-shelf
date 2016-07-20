@@ -54,14 +54,14 @@ public class EmptyShoppingCartControllerTest {
 
     @Test
     public void emptyCartListThenRedirectToCartList() throws Exception {
-        mockMvc.perform(delete("/shop-cart/empty-cart"))
+        mockMvc.perform(delete("/shop-cart/cart-empty"))
                 .andExpect(redirectedUrl("/shop-cart/cart-list"));
     }
 
     @Test
     public void verifyHTTPStatusIsFound() throws Exception {
 
-        mockMvc.perform(delete("/shop-cart/empty-cart"))
+        mockMvc.perform(delete("/shop-cart/cart-empty"))
                 .andExpect(status().isFound());
 
     }
@@ -72,7 +72,7 @@ public class EmptyShoppingCartControllerTest {
 
         when(shoppingCart.getCartList()).thenReturn(bookList);
 
-        mockMvc.perform(delete("/shop-cart/empty-cart"))
+        mockMvc.perform(delete("/shop-cart/cart-empty"))
                 .andExpect(model().attribute("cartList", hasSize(2)));
 
         bookList.clear();
@@ -80,7 +80,7 @@ public class EmptyShoppingCartControllerTest {
 
         verify(shoppingCart, times(1)).clearCart();
 
-        mockMvc.perform(delete("/shop-cart/empty-cart"))
+        mockMvc.perform(delete("/shop-cart/cart-empty"))
                 .andExpect(model().attribute("cartList", hasSize(0)));
     }
 }

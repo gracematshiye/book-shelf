@@ -62,13 +62,22 @@ public class ShopCartController {
         return "redirect:/shop-cart/cart-list";
     }
 
-    @RequestMapping(value = "/shop-cart/empty-cart")
+    @RequestMapping(value = "/shop-cart/cart-empty")
     public String clearCart(ModelMap modelMap) {
 
         shoppingCart.clearCart();
         modelMap.addAttribute("cartList", shoppingCart.getCartList());
 
         return "redirect:/shop-cart/cart-list";
+    }
+
+
+    @RequestMapping(value = "/shop-cart/cart-checkout")
+    public String checkout(ModelMap modelMap) {
+
+
+        modelMap.addAttribute("cartSize", shoppingCart.getShopCartCount());
+        return "customer-details";
     }
 
 }

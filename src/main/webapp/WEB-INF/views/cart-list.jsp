@@ -7,11 +7,11 @@
     <table>
         <tr>
             <td>
-                <a href = "${pageContext.request.contextPath}/shop-cart/empty-cart" class="btn btn-primary btn-inverse" style = "margin-left: 150px;"> Empty Cart </a>
+                <a href = "${pageContext.request.contextPath}/shop-cart/cart-empty" class="btn btn-primary btn-inverse" style = "margin-left: 150px;"> Empty Cart </a>
             </td>
 
             <td>
-                <a href = "#" class="btn btn-primary btn-inverse" style = "margin-left:957px"> Checkout </a>
+                <a href = "${pageContext.request.contextPath}/shop-cart/cart-checkout"  class="btn btn-primary btn-inverse" style = "margin-left:957px"> Checkout </a>
             </td>
         </tr>
     </table>
