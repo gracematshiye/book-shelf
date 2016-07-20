@@ -17,7 +17,7 @@
                         </span>
                      </td>
                      <td>
-                         <a href = "${pageContext.request.contextPath}/shop-cart/cart-checkout"  class="btn btn-primary btn-inverse" style = "margin-left:435px"> Checkout </a>
+                         <a href = "#"  class="btn btn-primary btn-inverse" style = "margin-left:435px"> Checkout </a>
                      </td>
                  </tr>
              </table>

@@ -71,12 +71,4 @@ public class ShopCartController {
         return "redirect:/shop-cart/cart-list";
     }
 
-
-    @RequestMapping(value = "/shop-cart/cart-checkout")
-    public String checkout(ModelMap modelMap) {
-
-        modelMap.addAttribute("cartSize", shoppingCart.getShopCartCount());
-        return "customer-details";
-    }
-
 }
