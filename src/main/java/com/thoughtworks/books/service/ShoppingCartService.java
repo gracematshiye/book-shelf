@@ -15,13 +15,15 @@ import java.util.List;
 @Service
 public interface ShoppingCartService {
 
-    public int getShopCartCount();
+    int getShopCartCount();
 
-    public void addToCart(Book book);
+    void addToCart(Book book);
 
-    public List<Book> getCartList();
+    List<Book> getCartList();
 
-    public void removeFromCart(int id);
+    void removeItemFromCart(int id);
 
-    public BigDecimal cartTotal();
+    BigDecimal getCartTotal();
+
+    void clearCart();
 }

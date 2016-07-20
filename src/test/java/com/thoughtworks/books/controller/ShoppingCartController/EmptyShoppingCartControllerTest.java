@@ -2,9 +2,7 @@ package com.thoughtworks.books.controller.ShoppingCartController;
 
 import com.thoughtworks.books.controller.ShopCartController;
 import com.thoughtworks.books.entity.Book;
-import com.thoughtworks.books.service.BookService;
 import com.thoughtworks.books.service.ShoppingCartService;
-import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -18,16 +16,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class AddToCartControllerTest {
-
+public class EmptyShoppingCartControllerTest {
     private MockMvc mockMvc;
-
-    @Mock
-    private BookService bookService = new BookServiceImpl();
 
     @Mock
     private ShoppingCartService shoppingCart;
@@ -36,7 +31,8 @@ public class AddToCartControllerTest {
     private ShopCartController controller;
 
     List<Book> bookList = new ArrayList<>();
-    Book first = new Book("Java", "1-5555-t166-0", "Java Book", new BigDecimal(150));
+    Book first = new Book(1, "Java", "1-5555-t166-0", "Java Book", new BigDecimal(150));
+    Book second = new Book(2, "C#", "9-5555-t186-0", "Basics of C#", new BigDecimal(190));
 
     @Before
     public void setUp() throws Exception {
@@ -46,53 +42,45 @@ public class AddToCartControllerTest {
         viewResolver.setSuffix(".jsp");
 
         bookList.add(first);
+        bookList.add(second);
 
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setViewResolvers(viewResolver).build();
 
-        when(shoppingCart.getCartList()).thenReturn(bookList);
 
     }
 
-    /**
-     * Verify that name of the rendered view is ‘bookShop’
-     * ==============================================================
-     */
     @Test
-    public void testAddToCartThatItCanRedirectToBooks() throws Exception {  //from addToCart method
-        int id = 1;
-        mockMvc.perform(get("/shop-cart/" + id))
-                .andExpect(view().name("redirect:/books"));
+    public void emptyCartListThenRedirectToCartList() throws Exception {
+        mockMvc.perform(delete("/shop-cart/empty-cart"))
+                .andExpect(redirectedUrl("/shop-cart/cart-list"));
     }
 
-    /**
-     * Verify that the HTTP status code is 302.
-     * ===============================================================
-     **/
     @Test
     public void verifyHTTPStatusIsFound() throws Exception {
 
-        int id = 1;
-        mockMvc.perform(get("/shop-cart/" + id))
+        mockMvc.perform(delete("/shop-cart/empty-cart"))
                 .andExpect(status().isFound());
 
     }
 
-    /**
-     * Verify that shopping cart return the number of items in a cart list
-     * ===================================================================
-     **/
     @Test
-    public void testCartAttributeExists() throws Exception {
-        int id = 1;
-        mockMvc.perform(get("/shop-cart/" + id))
-                .andExpect(model().attribute("cartSize", shoppingCart.getShopCartCount()));
+    public void testRemoveItemFromCart() throws Exception {
 
+
+        when(shoppingCart.getCartList()).thenReturn(bookList);
+
+        mockMvc.perform(delete("/shop-cart/empty-cart"))
+                .andExpect(model().attribute("cartList", hasSize(2)));
+
+        bookList.clear();
+        when(shoppingCart.getCartList()).thenReturn(bookList);
+
+        verify(shoppingCart, times(1)).clearCart();
+
+        mockMvc.perform(delete("/shop-cart/empty-cart"))
+                .andExpect(model().attribute("cartList", hasSize(0)));
     }
-
-
 }
-
-

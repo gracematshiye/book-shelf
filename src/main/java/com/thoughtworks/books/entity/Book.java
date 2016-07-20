@@ -27,6 +27,14 @@ public class Book{
         this.price = price;
     }
 
+    public Book(int id, String name, String isbn, String description, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.isbn = isbn;
+        this.description = description;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }

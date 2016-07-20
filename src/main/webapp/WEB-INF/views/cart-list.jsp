@@ -36,7 +36,7 @@
                                         <th class="col-md-2 col-xs-2">Book ISBN</th>
                                         <th class="col-md-2 col-xs-2">Book Price</th>
                                         <th class="col-md-4 col-xs-4">Book Description</th>
-                                        <th class="col-md-1 col-xs-1"><a href="${pageContext.request.contextPath}/shop-cart/remove/${book.id}"class = "glyphicon glyphicon-remove" style = "margin-left: 70px; color:red"></a></th>
+                                        <th class="col-md-1 col-xs-1"><a href="${pageContext.request.contextPath}/shop-cart/cart-remove/${book.id}"class = "glyphicon glyphicon-remove" style = "margin-left: 70px; color:red"></a></th>
                                     </tr>
                                 </thead>
 
