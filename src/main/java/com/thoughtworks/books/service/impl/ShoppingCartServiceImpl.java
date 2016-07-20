@@ -17,7 +17,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private BookService bookService = new BookServiceImpl();
 
-    private BigDecimal cartTotal = new BigDecimal(0);
+
     private List<Book> bookList = new ArrayList<>();
 
     public int getShopCartCount() {
@@ -41,21 +41,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 getCartList().remove(i);
                 break;
             }
-
         }
-
     }
+
     @Override
     public BigDecimal getCartTotal() {
 
+        BigDecimal cartTotal = new BigDecimal(0);
+
         if (bookList.size() > 0) {
-            for (Book book : bookList) {
-                cartTotal = cartTotal.add(book.getPrice());
+            for (int i = 0; i < bookList.size(); i++) {
+                cartTotal = cartTotal.add(bookList.get(i).getPrice());
             }
         }
         return cartTotal;
     }
-
 
     @Override
     public void clearCart() {

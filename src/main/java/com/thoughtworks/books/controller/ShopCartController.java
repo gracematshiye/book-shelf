@@ -75,7 +75,6 @@ public class ShopCartController {
     @RequestMapping(value = "/shop-cart/cart-checkout")
     public String checkout(ModelMap modelMap) {
 
-
         modelMap.addAttribute("cartSize", shoppingCart.getShopCartCount());
         return "customer-details";
     }

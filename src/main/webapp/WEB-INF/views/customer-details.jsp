@@ -23,8 +23,16 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <label  class="col-xs-2 control-label pull-left">Cell number</label>
+                                <label  class="col-xs-2 control-label pull-left">Contact</label>
                                 <input type="text"  class="form-control" name="phone" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label  class="col-xs-2 control-label pull-left">Email</label>
+                                <input type="email"  class="form-control" name="email" />
                             </div>
                         </td>
                     </tr>
