@@ -143,6 +143,7 @@
                         </httpConnector>
                     </configuration>
                 </plugin>
+
             </plugins>
         </pluginManagement>
         <plugins>

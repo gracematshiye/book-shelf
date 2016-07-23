@@ -1,47 +1,22 @@
 
 <%@include file="header.jsp" %>
 
-<div style = "margin-top:95px">
+<div class = "container">
+    <div class = "container-fluid">
+        <c:if test="${!empty cartList}">
+           <a href = "${pageContext.request.contextPath}/shop-cart/cart-empty" class="btn btn-primary " style="float:left;"> Empty Cart </a>
+           <a href = "#"  class="btn btn-primary" style="float:right;"> Checkout </a>
+        </c:if>
 
-    <c:choose>
-        <c:when test="${!empty cartList}">
-            <table>
-                <tr>
-                    <td>
-                        <a href = "${pageContext.request.contextPath}/shop-cart/cart-empty" class="btn btn-primary btn-inverse" style = "margin-left: 390px;"> Empty Cart </a>
-                    </td>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <c:choose>
+                        <c:when test="${!empty cartList}">
+                            <c:forEach items="${cartList}" var="book">
 
-                    <td>
-                        <span class="badge" style="margin-left:420px" >
-                            Total: R ${cartTotal}
-                        </span>
-                     </td>
-                     <td>
-                         <a href = "#"  class="btn btn-primary btn-inverse" style = "margin-left:435px"> Checkout </a>
-                     </td>
-                 </tr>
-             </table>
-        </c:when>
-        <c:otherwise>
-            <span  style="margin-left:350px" >
-            </span>
-        </c:otherwise>
-    </c:choose>
-
-</div>
-
-<div style = "margin-top:20px">
-    <c:choose>
-        <c:when test="${!empty cartList}">
-            <c:forEach items="${cartList}" var="book">
-                <div >
-
-                    <!-- Displaying book cart list-->
-                    <div class="container" >
-
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <table class="table table-hover results">
+                            <div class="list-group-item" style = "margin-top:10px; margin-bottom:10px">
+                                <table class="table table-hover  results">
                                     <thead>
                                         <tr>
                                             <th class="col-md-2 col-xs-2">
@@ -83,37 +58,41 @@
                                             <td >
                                                 ${book.description}
                                             </td>
+
+                                            <td>
+                                                <img src = "<c:url value="/resources/images/book.jpg"/>" style="width:0px;height:40px;">
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </li>
-                        </ul>
+                            </div>
+                            </c:forEach>
 
-                    </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="list-group-item" style = "margin-top:10px; margin-bottom:10px">
+                                <center>
+                                    <div class="icon-large icon-shopping-cart"><h2> Cart list is empty</h2></div>
+                                    <h1><span class="glyphicon glyphicon-shopping-cart" ></span></h1>
+                               </center>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-
-            </c:forEach>
-
-        </c:when>
-
-        <c:otherwise>
-             <div style = "margin-top:20px; ">
-
-                <!-- Displaying book cart list-->
-                <div class="container" >
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <center>
-                                <div class="icon-large icon-shopping-cart"><h2> Cart list is empty</h2></div>
-                                <h1><span class="glyphicon glyphicon-shopping-cart" ></span></h1>
-                           </center>
-                        </li>
-                    </ul>
-                </div>
-
             </div>
-        </c:otherwise>
-    </c:choose>
-</div>
+        </div>
+         <c:choose>
+            <c:when test="${!empty cartList}">
+                <span class="label label-default" style="float:right; width:200px; ">
+                    <h5>
+                    Total: R ${cartTotal}
+                    </h5>
+                </span>
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
 
+    </div>
+</div>
 <%@include file="footer.jsp" %>

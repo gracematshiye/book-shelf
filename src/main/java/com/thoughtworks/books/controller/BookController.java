@@ -31,7 +31,7 @@ public class BookController {
         List<Book> books = this.bookService.getBooks();
 
         modelMap.addAttribute("books", books);
-        modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartCount());
+        modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartSize());
 
         return "bookShop";
     }

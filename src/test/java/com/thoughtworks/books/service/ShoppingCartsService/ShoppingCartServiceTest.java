@@ -1,14 +1,11 @@
 package com.thoughtworks.books.service.ShoppingCartsService;
 
 import com.thoughtworks.books.entity.Book;
-import com.thoughtworks.books.service.BookService;
 import com.thoughtworks.books.service.ShoppingCartService;
-import com.thoughtworks.books.service.impl.BookServiceImpl;
 import com.thoughtworks.books.service.impl.ShoppingCartServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ public class ShoppingCartServiceTest {
     @Test
     public void testShopCartIsEmpty() throws Exception {
 
-        Assert.assertEquals(0, shoppingCart.getShopCartCount());
+        Assert.assertEquals(0, shoppingCart.getShopCartSize());
 
     }
 
@@ -35,7 +32,7 @@ public class ShoppingCartServiceTest {
         Book book = new Book("java", "HHD-BF789DFS-SDF","JAVA BOOK", new BigDecimal(4554));
         shoppingCart.addToCart(book);
 
-        Assert.assertEquals(1, shoppingCart.getShopCartCount());
+        Assert.assertEquals(1, shoppingCart.getShopCartSize());
 
     }
 
@@ -46,7 +43,7 @@ public class ShoppingCartServiceTest {
         shoppingCart.addToCart(book1);
         shoppingCart.addToCart(book2);
 
-        Assert.assertEquals(2, shoppingCart.getShopCartCount());
+        Assert.assertEquals(2, shoppingCart.getShopCartSize());
     }
 
     @Test
@@ -65,7 +62,7 @@ public class ShoppingCartServiceTest {
         shoppingCart.addToCart(book);
 
         Assert.assertEquals(new BigDecimal(100), shoppingCart.getCartTotal());
-        Assert.assertEquals(1, shoppingCart.getShopCartCount());
+        Assert.assertEquals(1, shoppingCart.getShopCartSize());
     }
 
     @Test
@@ -76,7 +73,7 @@ public class ShoppingCartServiceTest {
         shoppingCart.addToCart(book2);
 
         Assert.assertEquals(new BigDecimal(200), shoppingCart.getCartTotal());
-        Assert.assertEquals(2, shoppingCart.getShopCartCount());
+        Assert.assertEquals(2, shoppingCart.getShopCartSize());
     }
 
 
@@ -89,10 +86,10 @@ public class ShoppingCartServiceTest {
         shoppingCart.addToCart(book1);
         shoppingCart.addToCart(book2);
 
-        Assert.assertEquals(2, shoppingCart.getShopCartCount());
+        Assert.assertEquals(2, shoppingCart.getShopCartSize());
         shoppingCart.removeItemFromCart(book1.getId());
 
-        Assert.assertEquals(1, shoppingCart.getShopCartCount());
+        Assert.assertEquals(1, shoppingCart.getShopCartSize());
 
 
     }
@@ -105,10 +102,10 @@ public class ShoppingCartServiceTest {
         shoppingCart.addToCart(book1);
         shoppingCart.addToCart(book2);
 
-        Assert.assertEquals(2, shoppingCart.getShopCartCount());
+        Assert.assertEquals(2, shoppingCart.getShopCartSize());
         shoppingCart.clearCart();
 
-        Assert.assertEquals(0, shoppingCart.getShopCartCount());
+        Assert.assertEquals(0, shoppingCart.getShopCartSize());
 
 
     }

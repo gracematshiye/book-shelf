@@ -3,8 +3,6 @@ package com.thoughtworks.books.controller;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
 import com.thoughtworks.books.service.ShoppingCartService;
-import com.thoughtworks.books.service.impl.BookServiceImpl;
-import com.thoughtworks.books.service.impl.ShoppingCartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,7 +36,7 @@ public class ShopCartController {
 
         }
 
-        modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartCount());
+        modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartSize());
         return "redirect:/books";
     }
 
@@ -46,7 +44,7 @@ public class ShopCartController {
     public String cartList(ModelMap modelMap) {
 
         modelMap.addAttribute("cartList", shoppingCart.getCartList());
-        modelMap.addAttribute("cartSize", shoppingCart.getShopCartCount());
+        modelMap.addAttribute("cartSize", shoppingCart.getShopCartSize());
         modelMap.addAttribute("cartTotal", shoppingCart.getCartTotal());
 
         return "cart-list";
@@ -70,5 +68,4 @@ public class ShopCartController {
 
         return "redirect:/shop-cart/cart-list";
     }
-
 }

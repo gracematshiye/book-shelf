@@ -1,10 +1,10 @@
 
 <%@include file="header.jsp" %>
 
-<div style = "margin-top:70px; ">
+<div style = "margin-top:70px; " class="container">
 
     <!-- Displaying books-->
-    <div class="container">
+    <div class="container-fluid">
         <c:choose>
             <c:when test="${!empty books}">
                 <ul>

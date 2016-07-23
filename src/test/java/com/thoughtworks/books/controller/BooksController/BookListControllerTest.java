@@ -142,7 +142,7 @@ public class BookListControllerTest {
     @Test
     public void testCartSizeAttributeExists() throws Exception {
         mockMvc.perform(get("/books"))
-                .andExpect(model().attribute("cartSize", this.shoppingCartService.getShopCartCount()));
+                .andExpect(model().attribute("cartSize", this.shoppingCartService.getShopCartSize()));
     }
 
     /**

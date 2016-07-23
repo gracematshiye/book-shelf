@@ -5,7 +5,6 @@ import com.thoughtworks.books.service.BookService;
 import com.thoughtworks.books.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,12 +16,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private BookService bookService = new BookServiceImpl();
 
-
     private List<Book> bookList = new ArrayList<>();
-
-    public int getShopCartCount() {
-        return bookList.size();
-    }
 
     @Override
     public void addToCart(Book book) {
@@ -34,14 +28,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return bookList;
     }
 
-    @Override
-    public void removeItemFromCart(int id) {
-        for (int i = 0; i < bookList.size(); i++) {
-            if (id == bookList.get(i).getId()){
-                getCartList().remove(i);
-                break;
-            }
-        }
+    public int getShopCartSize() {
+        return bookList.size();
     }
 
     @Override
@@ -49,12 +37,23 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         BigDecimal cartTotal = new BigDecimal(0);
 
-        if (bookList.size() > 0) {
-            for (int i = 0; i < bookList.size(); i++) {
-                cartTotal = cartTotal.add(bookList.get(i).getPrice());
+        if (getCartList().size() > 0) {
+            for (int i = 0; i < getCartList().size(); i++) {
+                cartTotal = cartTotal.add(getCartList().get(i).getPrice());
             }
         }
         return cartTotal;
+    }
+
+    @Override
+    public void removeItemFromCart(int id) {
+
+        for (int i = 0; i < getCartList().size(); i++) {
+            if (id == getCartList().get(i).getId()) {
+                getCartList().remove(i);
+                break;
+            }
+        }
     }
 
     @Override

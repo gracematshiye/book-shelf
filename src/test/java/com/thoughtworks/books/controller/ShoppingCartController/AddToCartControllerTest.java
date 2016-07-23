@@ -88,7 +88,7 @@ public class AddToCartControllerTest {
     public void testCartAttributeExists() throws Exception {
         int id = 1;
         mockMvc.perform(get("/shop-cart/" + id))
-                .andExpect(model().attribute("cartSize", shoppingCart.getShopCartCount()));
+                .andExpect(model().attribute("cartSize", shoppingCart.getShopCartSize()));
 
     }
 

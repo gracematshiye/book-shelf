@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public interface ShoppingCartService {
 
-    int getShopCartCount();
+    int getShopCartSize();
 
     void addToCart(Book book);
 
