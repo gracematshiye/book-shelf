@@ -5,7 +5,7 @@
     <div class = "container-fluid">
         <c:if test="${!empty cartList}">
            <a href = "${pageContext.request.contextPath}/shop-cart/cart-empty" class="btn btn-primary " style="float:left;"> Empty Cart </a>
-           <a href = "#"  class="btn btn-primary" style="float:right;"> Checkout </a>
+           <a href = "${pageContext.request.contextPath}/shop-cart/cart-checkout"  class="btn btn-primary" style="float:right;"> Checkout </a>
         </c:if>
 
         <div class="row">

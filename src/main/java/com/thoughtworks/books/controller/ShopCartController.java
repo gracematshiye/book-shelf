@@ -15,7 +15,6 @@ import java.util.List;
 @Controller
 public class ShopCartController {
 
-
     @Autowired
     private ShoppingCartService shoppingCart;
 
@@ -25,7 +24,6 @@ public class ShopCartController {
     @RequestMapping(value = "/shop-cart/{id}")
     public String addToCart(@PathVariable("id") int id, ModelMap modelMap) {
 
-
         List<Book> books = this.bookService.getBooks();
 
         for (int i = 0; i < books.size(); i++) {
@@ -33,7 +31,6 @@ public class ShopCartController {
             if (id == books.get(i).getId()) {
                 shoppingCart.addToCart(books.get(i));
             }
-
         }
 
         modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartSize());
@@ -49,7 +46,6 @@ public class ShopCartController {
 
         return "cart-list";
     }
-
 
     @RequestMapping(value = "/shop-cart/cart-remove/{id}")
     public String removeItem(@PathVariable("id") int id, ModelMap modelMap) {
@@ -67,5 +63,12 @@ public class ShopCartController {
         modelMap.addAttribute("cartList", shoppingCart.getCartList());
 
         return "redirect:/shop-cart/cart-list";
+    }
+
+    @RequestMapping(value = "/shop-cart/cart-checkout")
+    public String checkout(ModelMap modelMap) {
+
+        modelMap.addAttribute("cartSize", shoppingCart.getShopCartSize());
+        return "customer-details";
     }
 }

@@ -1,4 +1,4 @@
-package com.thoughtworks.books.service.ShoppingCartsService;
+package com.thoughtworks.books.service.shop;
 
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.ShoppingCartService;

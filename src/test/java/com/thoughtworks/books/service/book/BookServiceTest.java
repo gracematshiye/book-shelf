@@ -1,4 +1,4 @@
-package com.thoughtworks.books.service.BooksService;
+package com.thoughtworks.books.service.book;
 
 import com.thoughtworks.books.dao.BookDao;
 import com.thoughtworks.books.entity.Book;
