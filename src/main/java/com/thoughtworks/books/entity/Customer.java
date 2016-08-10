@@ -1,8 +1,6 @@
 package com.thoughtworks.books.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -10,15 +8,18 @@ import java.util.List;
 public class Customer {
 
     @Id
-    private String orderNumber;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private String surname;
     private String contact;
     private String email;
     private String address;
 
-    public Customer(String orderNumber, String name, String surname, String contact, String email, String address) {
-        this.orderNumber = orderNumber;
+    public Customer(){}
+
+    public Customer(String name, String surname, String contact, String email, String address) {
         this.name = name;
         this.surname = surname;
         this.contact = contact;
@@ -26,12 +27,8 @@ public class Customer {
         this.address = address;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -77,7 +74,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "orderNumber='" + orderNumber + '\'' +
+                ", id=" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", contact='" + contact + '\'' +
@@ -86,32 +83,32 @@ public class Customer {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
 
         Customer customer = (Customer) o;
 
-        if (orderNumber != null ? !orderNumber.equals(customer.orderNumber) : customer.orderNumber != null)
-            return false;
-        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
-        if (surname != null ? !surname.equals(customer.surname) : customer.surname != null) return false;
-        if (contact != null ? !contact.equals(customer.contact) : customer.contact != null) return false;
-        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
-        return address != null ? address.equals(customer.address) : customer.address == null;
-
+        return new org.apache.commons.lang.builder.EqualsBuilder()
+                .append(name, customer.name)
+                .append(surname, customer.surname)
+                .append(contact, customer.contact)
+                .append(email, customer.email)
+                .append(address, customer.address)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = orderNumber != null ? orderNumber.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (contact != null ? contact.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        return result;
+        return new org.apache.commons.lang.builder.HashCodeBuilder(17, 37)
+                .append(name)
+                .append(surname)
+                .append(contact)
+                .append(email)
+                .append(address)
+                .toHashCode();
     }
 }

@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -80,6 +83,13 @@ public class AddToCartControllerTest {
 
     }
 
+    @Test
+    public void testAddToCartMethodIsCalled() throws Exception {
+        shoppingCart.addToCart(any(Book.class));
+        verify(shoppingCart, atLeastOnce()).addToCart(any(Book.class));
+
+    }
+
     /**
      * Verify that shopping cart return the number of items in a cart list
      * ===================================================================
@@ -91,8 +101,6 @@ public class AddToCartControllerTest {
                 .andExpect(model().attribute("cartSize", shoppingCart.getShopCartSize()));
 
     }
-
-
 }
 
 

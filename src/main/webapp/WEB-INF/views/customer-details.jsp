@@ -3,9 +3,11 @@
 
 <div style = "margin-top:95px" class="container">
 
+    <c:url var="addAction" value="/shop-cart/customer/add" ></c:url>
+
     <div align="center" class="form-group" >
-    <h4 style="box-shadow: 3px 3px 3px rgba(0,0,0,0.1); width:450px; margin-bottom: 20px; height:80px; color: rgb(0, 51, 204)";> Fill in your personal details below </h4>
-            <form method="POST" modelAttribute="customer">
+        <h4 style="box-shadow: 3px 3px 3px rgba(0,0,0,0.1); width:450px; margin-bottom: 20px; height:80px; color: rgb(0, 51, 204)"> Fill in your personal details below </h4>
+            <form method="POST" action="${addAction}" commandName="customer">
                 <table border="0">
                     <tr>
                         <td>
@@ -27,7 +29,7 @@
                         <td>
                             <div class="form-group">
                                 <label  class="col-xs-2 control-label pull-left">Contact</label>
-                                <input type="text"  class="form-control" name="phone" />
+                                <input type="text"  class="form-control" name="contact" />
                             </div>
                         </td>
                     </tr>

@@ -38,7 +38,7 @@ public class CustomerDaoTest {
     public void setUp() {
         session = sessionFactory.getCurrentSession();
         List<Book> cartList = new ArrayList<>();
-        customer = new Customer("HLU1", "Hlulani", "Chauke", "0799999999", "h@mail.com", "200 khumalo street, ivory park");
+        customer = new Customer("Hlulani", "Chauke", "0799999999", "h@mail.com", "200 khumalo street, ivory park");
     }
 
     @Test
@@ -60,7 +60,6 @@ public class CustomerDaoTest {
 
         List<Customer> customerList = session.createQuery("from Customer").list();
 
-        Assert.assertEquals(customer.getOrderNumber(), customerList.get(0).getOrderNumber());
         Assert.assertEquals(customer.getName(), customerList.get(0).getName());
         Assert.assertEquals(customer.getSurname(), customerList.get(0).getSurname());
         Assert.assertEquals(customer.getContact(), customerList.get(0).getContact());

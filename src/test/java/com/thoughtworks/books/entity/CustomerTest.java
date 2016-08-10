@@ -11,8 +11,8 @@ public class CustomerTest {
 
     @Before
     public void setUp() throws Exception {
-        customer = new Customer("HLU1", "Hlulani", "Chauke", "0799999999", "h@mail.com", "200 khumalo street, ivory park");
-        customer1 = new Customer("GRA0002", "Grace", "Matshiye" ,"0788888888", "g@mail.com", "sosha block A");
+        customer = new Customer("Hlulani", "Chauke", "0799999999", "h@mail.com", "200 khumalo street, ivory park");
+        customer1 = new Customer("Grace", "Matshiye" ,"0788888888", "g@mail.com", "sosha block A");
 
     }
 

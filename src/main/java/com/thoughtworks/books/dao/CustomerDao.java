@@ -5,6 +5,6 @@ import com.thoughtworks.books.entity.Customer;
 import java.util.List;
 
 public interface CustomerDao {
-    public void addCustomer(Customer customer);
-    public List<Customer> getCustomers();
+    void addCustomer(Customer customer);
+    List<Customer> getCustomers();
 }
