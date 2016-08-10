@@ -2,9 +2,11 @@ package com.thoughtworks.books.service;
 
 import com.thoughtworks.books.entity.Customer;
 
+import java.util.List;
+
 public interface CustomerService {
 
     void addCustomer(Customer customer);
 
-    java.util.List<Customer> getCustomers();
+   List<Customer> getCustomers();
 }

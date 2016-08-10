@@ -2,7 +2,10 @@ package com.thoughtworks.books.controller.customer;
 
 import com.thoughtworks.books.controller.CustomerController;
 import com.thoughtworks.books.entity.Customer;
+import com.thoughtworks.books.service.BookService;
 import com.thoughtworks.books.service.CustomerService;
+import com.thoughtworks.books.service.ShoppingCartService;
+import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -26,7 +29,14 @@ public class CustomerControllerTest {
     private MockMvc mockMvc;
 
     @Mock
+    private BookService bookService = new BookServiceImpl();
+
+    @Mock
+    private ShoppingCartService shoppingCartService;
+
+    @Mock
     private CustomerService customerService;
+
 
     @InjectMocks
     private CustomerController controller;

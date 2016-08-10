@@ -3,6 +3,7 @@ package com.thoughtworks.books.controller.ShoppingCartController;
 import com.thoughtworks.books.controller.ShopCartController;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.CustomerService;
 import com.thoughtworks.books.service.ShoppingCartService;
 import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Before;
@@ -28,11 +29,16 @@ public class CartListControllerTest {
 
     private MockMvc mockMvc;
 
+
     @Mock
     private BookService bookService = new BookServiceImpl();
 
     @Mock
-    private ShoppingCartService shoppingCart;
+    private ShoppingCartService shoppingCartService;
+
+    @Mock
+    private CustomerService customerService;
+
 
     @InjectMocks
     private ShopCartController controller;
@@ -54,7 +60,7 @@ public class CartListControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setViewResolvers(viewResolver).build();
 
-        when(shoppingCart.getCartList()).thenReturn(bookList);
+        when(shoppingCartService.getCartList()).thenReturn(bookList);
 
     }
 
@@ -74,20 +80,20 @@ public class CartListControllerTest {
     @Test
     public void testCartListAttributeExist() throws Exception {
         mockMvc.perform(get("/shop-cart/cart-list"))
-                .andExpect(model().attribute("cartList", shoppingCart.getCartList()));
+                .andExpect(model().attribute("cartList", shoppingCartService.getCartList()));
 
     }
 
     @Test
     public void testCartSizeAttributeExist() throws Exception {
         mockMvc.perform(get("/shop-cart/cart-list"))
-                .andExpect(model().attribute("cartSize", shoppingCart.getShopCartSize()));
+                .andExpect(model().attribute("cartSize", shoppingCartService.getShopCartSize()));
 
     }
     @Test
     public void testCartTotalAttributeExist() throws Exception {
         mockMvc.perform(get("/shop-cart/cart-list"))
-                .andExpect(model().attribute("cartTotal", shoppingCart.getCartTotal()));
+                .andExpect(model().attribute("cartTotal", shoppingCartService.getCartTotal()));
 
     }
 }

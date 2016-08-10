@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/resources/spring-applicationContext-dao-test.xml")
+@ContextConfiguration("file:src/test/webapp/resources/applicationContext-book-dao-test.xml")
 @Transactional
 @Rollback(true)
 public class BookDaoTest {

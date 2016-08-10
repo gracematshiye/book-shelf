@@ -3,6 +3,7 @@ package com.thoughtworks.books.controller.ShoppingCartController;
 import com.thoughtworks.books.controller.ShopCartController;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.CustomerService;
 import com.thoughtworks.books.service.ShoppingCartService;
 import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Before;
@@ -29,11 +30,15 @@ public class AddToCartControllerTest {
 
     private MockMvc mockMvc;
 
+
     @Mock
     private BookService bookService = new BookServiceImpl();
 
     @Mock
-    private ShoppingCartService shoppingCart;
+    private ShoppingCartService shoppingCartService;
+
+    @Mock
+    private CustomerService customerService;
 
     @InjectMocks
     private ShopCartController controller;
@@ -55,7 +60,7 @@ public class AddToCartControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setViewResolvers(viewResolver).build();
 
-        when(shoppingCart.getCartList()).thenReturn(bookList);
+        when(shoppingCartService.getCartList()).thenReturn(bookList);
 
     }
 
@@ -85,8 +90,8 @@ public class AddToCartControllerTest {
 
     @Test
     public void testAddToCartMethodIsCalled() throws Exception {
-        shoppingCart.addToCart(any(Book.class));
-        verify(shoppingCart, atLeastOnce()).addToCart(any(Book.class));
+        shoppingCartService.addToCart(any(Book.class));
+        verify(shoppingCartService, atLeastOnce()).addToCart(any(Book.class));
 
     }
 
@@ -98,7 +103,7 @@ public class AddToCartControllerTest {
     public void testCartAttributeExists() throws Exception {
         int id = 1;
         mockMvc.perform(get("/shop-cart/" + id))
-                .andExpect(model().attribute("cartSize", shoppingCart.getShopCartSize()));
+                .andExpect(model().attribute("cartSize", shoppingCartService.getShopCartSize()));
 
     }
 }

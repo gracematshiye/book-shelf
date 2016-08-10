@@ -2,7 +2,10 @@ package com.thoughtworks.books.controller.ShoppingCartController;
 
 import com.thoughtworks.books.controller.ShopCartController;
 import com.thoughtworks.books.entity.Book;
+import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.CustomerService;
 import com.thoughtworks.books.service.ShoppingCartService;
+import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -29,8 +32,15 @@ public class RemoveFromCartListController {
 
     private MockMvc mockMvc;
 
+
     @Mock
-    private ShoppingCartService shoppingCart;
+    private BookService bookService = new BookServiceImpl();
+
+    @Mock
+    private ShoppingCartService shoppingCartService;
+
+    @Mock
+    private CustomerService customerService;
 
     @InjectMocks
     private ShopCartController controller;
@@ -78,7 +88,7 @@ public class RemoveFromCartListController {
     public void testRemoveItemFromCart() throws Exception {
 
 
-        when(shoppingCart.getCartList()).thenReturn(bookList);
+        when(shoppingCartService.getCartList()).thenReturn(bookList);
 
         int id = 1;
         mockMvc.perform(delete("/shop-cart/cart-remove/" + id))
@@ -100,9 +110,9 @@ public class RemoveFromCartListController {
 
 
         bookList.remove(0);
-        when(shoppingCart.getCartList()).thenReturn(bookList);
+        when(shoppingCartService.getCartList()).thenReturn(bookList);
 
-        verify(shoppingCart, times(1)).removeItemFromCart(id);
+        verify(shoppingCartService, times(1)).removeItemFromCart(id);
 
         mockMvc.perform(delete("/shop-cart/cart-remove/" + id))
                 .andExpect(model().attribute("cartList", hasSize(1)))

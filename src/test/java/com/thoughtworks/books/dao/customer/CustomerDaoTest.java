@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/test/webapp/resources/applicationContext-customer-dao.xml")
+@ContextConfiguration("file:src/test/webapp/resources/applicationContext-customer-dao-test.xml")
 @Transactional
 @Rollback(true)
 public class CustomerDaoTest {

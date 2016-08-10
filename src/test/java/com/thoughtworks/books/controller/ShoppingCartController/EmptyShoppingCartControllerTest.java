@@ -2,7 +2,10 @@ package com.thoughtworks.books.controller.ShoppingCartController;
 
 import com.thoughtworks.books.controller.ShopCartController;
 import com.thoughtworks.books.entity.Book;
+import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.CustomerService;
 import com.thoughtworks.books.service.ShoppingCartService;
+import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -24,8 +27,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EmptyShoppingCartControllerTest {
     private MockMvc mockMvc;
 
+
     @Mock
-    private ShoppingCartService shoppingCart;
+    private BookService bookService = new BookServiceImpl();
+
+    @Mock
+    private ShoppingCartService shoppingCartService;
+
+    @Mock
+    private CustomerService customerService;
+
 
     @InjectMocks
     private ShopCartController controller;
@@ -70,15 +81,15 @@ public class EmptyShoppingCartControllerTest {
     public void testRemoveItemFromCart() throws Exception {
 
 
-        when(shoppingCart.getCartList()).thenReturn(bookList);
+        when(shoppingCartService.getCartList()).thenReturn(bookList);
 
         mockMvc.perform(delete("/shop-cart/cart-empty"))
                 .andExpect(model().attribute("cartList", hasSize(2)));
 
         bookList.clear();
-        when(shoppingCart.getCartList()).thenReturn(bookList);
+        when(shoppingCartService.getCartList()).thenReturn(bookList);
 
-        verify(shoppingCart, times(1)).clearCart();
+        verify(shoppingCartService, times(1)).clearCart();
 
         mockMvc.perform(delete("/shop-cart/cart-empty"))
                 .andExpect(model().attribute("cartList", hasSize(0)));

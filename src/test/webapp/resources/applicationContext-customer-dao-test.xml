@@ -13,7 +13,7 @@
     <!--Data base configuration-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/test_db"/>
+        <property name="url" value="jdbc:postgresql://localhost:5433/test_db"/>
         <property name="username" value="postgres"/>
         <property name="password" value="postgres"/>
     </bean>
@@ -33,7 +33,7 @@
         <property name="annotatedPackages" value="com.thoughtworks.books"/>
         <property name="annotatedClasses">
             <list>
-                <value>com.thoughtworks.books.entity.Book</value>
+                <value>com.thoughtworks.books.entity.Customer</value>
             </list>
         </property>
     </bean>

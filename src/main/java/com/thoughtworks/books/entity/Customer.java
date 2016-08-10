@@ -17,7 +17,9 @@ public class Customer {
     private String email;
     private String address;
 
-    public Customer(){}
+    protected Customer(){
+
+    }
 
     public Customer(String name, String surname, String contact, String email, String address) {
         this.name = name;
@@ -74,7 +76,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                ", id=" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", contact='" + contact + '\'' +
@@ -85,30 +87,28 @@ public class Customer {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
 
         Customer customer = (Customer) o;
 
-        return new org.apache.commons.lang.builder.EqualsBuilder()
-                .append(name, customer.name)
-                .append(surname, customer.surname)
-                .append(contact, customer.contact)
-                .append(email, customer.email)
-                .append(address, customer.address)
-                .isEquals();
+        if (id != customer.id) return false;
+        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
+        if (surname != null ? !surname.equals(customer.surname) : customer.surname != null) return false;
+        if (contact != null ? !contact.equals(customer.contact) : customer.contact != null) return false;
+        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
+        return address != null ? address.equals(customer.address) : customer.address == null;
+
     }
 
     @Override
     public int hashCode() {
-        return new org.apache.commons.lang.builder.HashCodeBuilder(17, 37)
-                .append(name)
-                .append(surname)
-                .append(contact)
-                .append(email)
-                .append(address)
-                .toHashCode();
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (contact != null ? contact.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        return result;
     }
 }

@@ -3,6 +3,7 @@ package com.thoughtworks.books.controller.BooksController;
 import com.thoughtworks.books.controller.BookController;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
+import com.thoughtworks.books.service.CustomerService;
 import com.thoughtworks.books.service.ShoppingCartService;
 import com.thoughtworks.books.service.impl.BookServiceImpl;
 import org.junit.Assert;
@@ -43,6 +44,9 @@ public class BookListControllerTest {
 
     @Mock
     private ShoppingCartService shoppingCartService;
+
+    @Mock
+    private CustomerService customerService;
 
     @InjectMocks
     private BookController controller;
