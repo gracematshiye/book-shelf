@@ -1,4 +1,4 @@
-package com.thoughtworks.books.service.shop;
+package com.thoughtworks.books.service.customer;
 
 import com.thoughtworks.books.dao.CustomerDao;
 import com.thoughtworks.books.entity.Customer;

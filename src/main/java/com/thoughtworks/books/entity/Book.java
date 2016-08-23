@@ -1,12 +1,14 @@
 package com.thoughtworks.books.entity;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 
 @Entity
 @Table(name = "Book")
-public class Book{
+public class Book {
 
     @Id
     @Column(name = "id")
@@ -72,16 +74,9 @@ public class Book{
     }
 
 
-
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.List;
 public class ShopCartController {
 
     @Autowired
-    private ShoppingCartService shoppingCart;
+    private ShoppingCartService shoppingCartService;
 
     @Autowired
     private BookService bookService;
@@ -29,20 +29,20 @@ public class ShopCartController {
         for (int i = 0; i < books.size(); i++) {
 
             if (id == books.get(i).getId()) {
-                shoppingCart.addToCart(books.get(i));
+                shoppingCartService.addToCart(books.get(i));
             }
         }
 
-        modelMap.addAttribute("cartSize", this.shoppingCart.getShopCartSize());
+        modelMap.addAttribute("cartSize", this.shoppingCartService.getShopCartSize());
         return "redirect:/books";
     }
 
     @RequestMapping(value = "/shop-cart/cart-list", method = RequestMethod.GET)
     public String cartList(ModelMap modelMap) {
 
-        modelMap.addAttribute("cartList", shoppingCart.getCartList());
-        modelMap.addAttribute("cartSize", shoppingCart.getShopCartSize());
-        modelMap.addAttribute("cartTotal", shoppingCart.getCartTotal());
+        modelMap.addAttribute("cartList", shoppingCartService.getCartList());
+        modelMap.addAttribute("cartSize", shoppingCartService.getShopCartSize());
+        modelMap.addAttribute("cartTotal", shoppingCartService.getCartTotal());
 
         return "cart-list";
     }
@@ -50,8 +50,8 @@ public class ShopCartController {
     @RequestMapping(value = "/shop-cart/cart-remove/{id}")
     public String removeItem(@PathVariable("id") int id, ModelMap modelMap) {
 
-        shoppingCart.removeItemFromCart(id);
-        modelMap.addAttribute("cartList", shoppingCart.getCartList());
+        shoppingCartService.removeItemFromCart(id);
+        modelMap.addAttribute("cartList", shoppingCartService.getCartList());
 
         return "redirect:/shop-cart/cart-list";
     }
@@ -59,8 +59,8 @@ public class ShopCartController {
     @RequestMapping(value = "/shop-cart/cart-empty")
     public String clearCart(ModelMap modelMap) {
 
-        shoppingCart.clearCart();
-        modelMap.addAttribute("cartList", shoppingCart.getCartList());
+        shoppingCartService.clearCart();
+        modelMap.addAttribute("cartList", shoppingCartService.getCartList());
 
         return "redirect:/shop-cart/cart-list";
     }
@@ -68,7 +68,7 @@ public class ShopCartController {
     @RequestMapping(value = "/shop-cart/cart-checkout")
     public String checkout(ModelMap modelMap) {
 
-        modelMap.addAttribute("cartSize", shoppingCart.getShopCartSize());
+        modelMap.addAttribute("cartSize", shoppingCartService.getShopCartSize());
         return "customer-details";
     }
 }
