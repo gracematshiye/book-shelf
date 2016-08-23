@@ -1,7 +1,7 @@
 package com.thoughtworks.books.service.impl;
 
 import java.util.List;
-import com.thoughtworks.books.dao.CustomerDao;
+import com.thoughtworks.books.dao.CustomerDao.java.CustomerDao;
 import com.thoughtworks.books.entity.Customer;
 import com.thoughtworks.books.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

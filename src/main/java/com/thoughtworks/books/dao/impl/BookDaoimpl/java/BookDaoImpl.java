@@ -1,6 +1,6 @@
-package com.thoughtworks.books.dao.impl;
+package com.thoughtworks.books.dao.impl.BookDaoimpl.java;
 
-import com.thoughtworks.books.dao.BookDao;
+import com.thoughtworks.books.dao.BookDao.java.BookDao;
 import com.thoughtworks.books.entity.Book;
 import org.hibernate.Query;
 import org.hibernate.Session;

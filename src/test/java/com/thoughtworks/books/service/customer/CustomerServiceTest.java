@@ -1,6 +1,6 @@
 package com.thoughtworks.books.service.customer;
 
-import com.thoughtworks.books.dao.CustomerDao;
+import com.thoughtworks.books.dao.CustomerDao.java.CustomerDao;
 import com.thoughtworks.books.entity.Customer;
 import com.thoughtworks.books.service.CustomerService;
 import com.thoughtworks.books.service.impl.CustomerServiceImpl;

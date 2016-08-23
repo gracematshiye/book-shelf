@@ -1,4 +1,4 @@
-package com.thoughtworks.books.dao;
+package com.thoughtworks.books.dao.CustomerDao.java;
 
 import com.thoughtworks.books.entity.Customer;
 

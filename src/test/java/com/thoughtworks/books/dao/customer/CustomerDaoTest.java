@@ -1,6 +1,6 @@
 package com.thoughtworks.books.dao.customer;
 
-import com.thoughtworks.books.dao.CustomerDao;
+import com.thoughtworks.books.dao.CustomerDao.java.CustomerDao;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.entity.Customer;
 import org.hibernate.Session;

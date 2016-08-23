@@ -1,6 +1,6 @@
 package com.thoughtworks.books.service.book;
 
-import com.thoughtworks.books.dao.BookDao;
+import com.thoughtworks.books.dao.BookDao.java.BookDao;
 import com.thoughtworks.books.entity.Book;
 import com.thoughtworks.books.service.BookService;
 import com.thoughtworks.books.service.impl.BookServiceImpl;
